@@ -1,8 +1,9 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import * as dotenv from 'dotenv';
+import { AppService } from './app.service';
+import { ChatGateway } from './communications/communications.gateway';
 
 dotenv.config();
 
@@ -24,7 +25,8 @@ dotenv.config();
         },
       },
     }),
-  ],
+    ChatGateway,
+   ],
   controllers: [AppController],
   providers: [AppService],
 })
