@@ -4,6 +4,12 @@ import { AppController } from './app.controller';
 import * as dotenv from 'dotenv';
 import { AppService } from './app.service';
 import { ChatGateway } from './communications/communications.gateway';
+import { ProjectModule } from './management/project/project.module';
+import { TeamModule } from './management/team/team.module';
+import { TaskModule } from './management/task/task.module';
+import { CommentModule } from './management/comment/comment.module';
+import { ResourceModule } from './management/resource/resource.module';
+import { MeetingModule } from './management/meeting/meeting.module';
 
 dotenv.config();
 
@@ -26,6 +32,12 @@ dotenv.config();
       },
     }),
     ChatGateway,
+    ProjectModule,
+    TeamModule,
+    TaskModule,
+    CommentModule,
+    ResourceModule,
+    MeetingModule,
    ],
   controllers: [AppController],
   providers: [AppService],
