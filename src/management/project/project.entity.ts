@@ -4,6 +4,7 @@ import { Task } from '../task/task.entity';
 import { Resource } from '../resource/resource.entity';
 import { Comment } from '../comment/comment.entity';
 import { Meeting } from '../meeting/meeting.entity';
+import { Archive } from '../archive/entities/archive.entity';
 
 @Entity()
 export class Project {
@@ -36,4 +37,7 @@ export class Project {
 
     @OneToMany(() => Meeting, meeting => meeting.project)
     meetings: Meeting[];
+
+    @OneToMany(() => Archive, archive => archive.project)
+    archive: Archive[];
 }

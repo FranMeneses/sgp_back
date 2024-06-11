@@ -2,7 +2,6 @@ import { Entity, Column, OneToMany, PrimaryGeneratedColumn, ManyToMany, JoinTabl
 import { Comment} from "../comment/comment.entity";
 import { Meeting } from "../meeting/meeting.entity";
 
-
 @Entity()
 export class Participant {
     @PrimaryGeneratedColumn()
