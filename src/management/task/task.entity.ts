@@ -31,6 +31,8 @@ export class Task {
     @OneToMany(() => Comment, comment => comment.task)
     comments: Comment[];
 
+    /*
     @ManyToOne(() => Notificacion, notificacion => notificacion.tasks)
     notificacion: Notificacion;
+    */
 }

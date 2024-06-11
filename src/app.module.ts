@@ -17,6 +17,12 @@ import { ArchiveModule } from './management/archive/archive.module';
 import { VersionModule } from './management/version/version.module';
 import { NotificacionModule } from './management/notificacion/notificacion.module';
 import { TeamParticipantModule } from './management/team-participant/team-participant.module';
+import { GraphicsModule } from './graphics/graphics.module';
+import { StatusModule } from './management/status/status.module';
+import { ArchiveModule } from './management/archive/archive.module';
+import { VersionModule } from './management/version/version.module';
+import { NotificacionModule } from './management/notificacion/notificacion.module';
+import { TeamParticipantModule } from './management/team-participant/team-participant.module';
 
 dotenv.config();
 
@@ -48,7 +54,6 @@ dotenv.config();
     ParticipantModule,
     GraphicsModule,
     StatusModule,
-    ParticipantModule,
     ArchiveModule,
     VersionModule,
     NotificacionModule,
