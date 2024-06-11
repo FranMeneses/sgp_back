@@ -1,6 +1,9 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne,OneToOne,JoinColumn } from 'typeorm';
 import { Project } from '../project/project.entity';
+import { Status } from 'src/management/status/entities/status.entity';
+import { Notificacion } from '../notificacion/entities/notificacion.entity';
 
+@Entity()
 export class Task {
     @PrimaryGeneratedColumn()
     id: number;
@@ -11,8 +14,9 @@ export class Task {
     @Column()
     description: string;
 
-    @Column()
-    status: string;
+    @OneToOne(() => Status, status => status.task)
+    @JoinColumn()
+    status: Status;
 
     @Column()
     start_date: Date;
@@ -22,4 +26,7 @@ export class Task {
 
     @ManyToOne(() => Project, project => project.tasks)
     project: Project;
+
+    @ManyToOne(() => Notificacion, notificacion => notificacion.tasks)
+    notificacion: Notificacion;
 }

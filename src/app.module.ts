@@ -10,6 +10,13 @@ import { TaskModule } from './management/task/task.module';
 import { CommentModule } from './management/comment/comment.module';
 import { ResourceModule } from './management/resource/resource.module';
 import { MeetingModule } from './management/meeting/meeting.module';
+import { GraphicsModule } from './graphics/graphics.module';
+import { StatusModule } from './management/status/status.module';
+import { ParticipantModule } from './management/participant/participant.module';
+import { ArchiveModule } from './management/archive/archive.module';
+import { VersionModule } from './management/version/version.module';
+import { NotificacionModule } from './management/notificacion/notificacion.module';
+import { TeamParticipantModule } from './management/team-participant/team-participant.module';
 
 dotenv.config();
 
@@ -38,6 +45,13 @@ dotenv.config();
     CommentModule,
     ResourceModule,
     MeetingModule,
+    GraphicsModule,
+    StatusModule,
+    ParticipantModule,
+    ArchiveModule,
+    VersionModule,
+    NotificacionModule,
+    TeamParticipantModule,
    ],
   controllers: [AppController],
   providers: [AppService],

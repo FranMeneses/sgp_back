@@ -2,6 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { Team } from '../team/team.entity';
 import { Task } from '../task/task.entity';
 import { Resource } from '../resource/resource.entity';
+import { Archive } from '../archive/entities/archive.entity';
 
 @Entity()
 export class Project {
@@ -28,4 +29,7 @@ export class Project {
 
     @OneToMany(() => Resource, resource => resource.project)
     resources: Resource[];
+
+    @OneToMany(() => Archive, archive => archive.project)
+    archive: Archive[];
 }
