@@ -10,6 +10,7 @@ import { TaskModule } from './management/task/task.module';
 import { CommentModule } from './management/comment/comment.module';
 import { ResourceModule } from './management/resource/resource.module';
 import { MeetingModule } from './management/meeting/meeting.module';
+import { ParticipantModule } from './management/participant/participant.module';
 
 dotenv.config();
 
@@ -38,6 +39,7 @@ dotenv.config();
     CommentModule,
     ResourceModule,
     MeetingModule,
+    ParticipantModule,
    ],
   controllers: [AppController],
   providers: [AppService],

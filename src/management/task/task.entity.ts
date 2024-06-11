@@ -1,6 +1,8 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from 'typeorm';
 import { Project } from '../project/project.entity';
+import { Comment } from '../comment/comment.entity';
 
+@Entity()
 export class Task {
     @PrimaryGeneratedColumn()
     id: number;
@@ -22,4 +24,7 @@ export class Task {
 
     @ManyToOne(() => Project, project => project.tasks)
     project: Project;
+
+    @OneToMany(() => Comment, comment => comment.task)
+    comments: Comment[];
 }
