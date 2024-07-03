@@ -17,6 +17,9 @@ import { ArchiveModule } from './management/archive/archive.module';
 import { VersionModule } from './management/version/version.module';
 import { NotificacionModule } from './management/notificacion/notificacion.module';
 import { TeamParticipantModule } from './management/team-participant/team-participant.module';
+import { DocumentsManagementModule } from './documents_management/documents_management.module';
+import { DocumentsManagementService } from './documents_management/documents_management.service';
+import { DocumentsManagementController } from './documents_management/documents_management.controller';
 import { GraphicsModule } from './graphics/graphics.module';
 import { StatusModule } from './management/status/status.module';
 import { ArchiveModule } from './management/archive/archive.module';
@@ -58,8 +61,9 @@ dotenv.config();
     VersionModule,
     NotificacionModule,
     TeamParticipantModule,
+    DocumentsManagementModule,
    ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [AppController, DocumentsManagementController],
+  providers: [AppService, DocumentsManagementService],
 })
 export class AppModule {}
