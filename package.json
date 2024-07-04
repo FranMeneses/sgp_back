@@ -30,6 +30,7 @@
     "@nestjs/platform-socket.io": "^10.3.9",
     "@nestjs/typeorm": "^10.0.2",
     "@nestjs/websockets": "^10.3.9",
+    "class-validator": "^0.14.1",
     "dotenv": "^16.4.5",
     "graphql": "^16.9.0",
     "mysql2": "^3.9.7",

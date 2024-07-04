@@ -13,10 +13,12 @@ import { MeetingModule } from './management/meeting/meeting.module';
 import { ParticipantModule } from './management/participant/participant.module';
 import { GraphicsModule } from './graphics/graphics.module';
 import { StatusModule } from './management/status/status.module';
-import { ArchiveModule } from './management/archive/archive.module';
 import { VersionModule } from './management/version/version.module';
 import { NotificacionModule } from './management/notificacion/notificacion.module';
 import { TeamParticipantModule } from './management/team-participant/team-participant.module';
+import { DocumentsManagementModule } from './documents_management/documents_management.module';
+import { DocumentsManagementService } from './documents_management/documents_management.service';
+import { DocumentsManagementController } from './documents_management/documents_management.controller';
 import { GraphQLModule } from '@nestjs/graphql';
 
 dotenv.config();
@@ -49,13 +51,13 @@ dotenv.config();
     ParticipantModule,
     GraphicsModule,
     StatusModule,
-    ArchiveModule,
     VersionModule,
     NotificacionModule,
     TeamParticipantModule,
-    GraphQLModule
+    GraphQLModule,
+    DocumentsManagementModule,
    ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [AppController, DocumentsManagementController],
+  providers: [AppService, DocumentsManagementService],
 })
 export class AppModule {}

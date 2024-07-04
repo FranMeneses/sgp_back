@@ -4,7 +4,7 @@ import { Task } from '../task/task.entity';
 import { Resource } from '../resource/resource.entity';
 import { Comment } from '../comment/comment.entity';
 import { Meeting } from '../meeting/meeting.entity';
-import { Archive } from '../archive/entities/archive.entity';
+import { Archive } from 'src/documents_management/entities/archive.entity';
 
 @Entity()
 export class Project {
