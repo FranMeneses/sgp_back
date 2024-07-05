@@ -1,7 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, UpdateResult } from 'typeorm';
 import { Participant } from './participant.entity';
+import { CreateParticipantDto } from './create-participant.dto';
+import { UpdateParticipantDto } from './update-participant.dto';
 
 @Injectable()
 export class ParticipantService {
@@ -10,23 +12,38 @@ export class ParticipantService {
     private participantRepository: Repository<Participant>,
   ) {}
 
-  create(participant: Participant) {
-    return this.participantRepository.save(participant);
+  async create(action: string, createParticipantDto: CreateParticipantDto): Promise<Participant> {
+    try {
+      const newParticipant = this.participantRepository.create(createParticipantDto);
+      return await this.participantRepository.save(newParticipant);
+    } catch (error) {
+      throw new BadRequestException(error.message);
+    }
   }
 
-  findAll() {
-    return this.participantRepository.find();
+  async findAll(action: string) {
+    return await this.participantRepository.find();
   }
 
-  findOne(id: number) {
-    return this.participantRepository.findOne({ where: { id } });
+  async findOne(action: string, id: number) {
+    return await this.participantRepository.findOne({ where: { id } });
   }
 
-  update(id: number, participant: Participant) {
-    return this.participantRepository.update(id, participant);
+  async update(action:string, id: number, updateParticipantDto: UpdateParticipantDto): Promise<UpdateResult> {
+    try {
+      const updatedParticipant = this.participantRepository.update(id, updateParticipantDto);
+      return await updatedParticipant;
+    } catch (error) {
+      throw new BadRequestException(error.message);
+    }
   }
 
-  remove(id: number) {
-    return this.participantRepository.delete(id);
+  async remove(action: string, id: number) {
+    try {
+      const deletedParticipant = this.participantRepository.delete(id);
+      return await deletedParticipant;
+    } catch (error) {
+      throw new BadRequestException(error.message);
+    }
   }
 }
