@@ -1,7 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Resource } from './resource.entity';
+import { CreateResourceDto } from './create-resource.dto';
+import { UpdateResourceDto } from './update-resource.dto';
+import { UpdateResult } from 'typeorm';
 
 @Injectable()
 export class ResourceService {
@@ -10,23 +13,38 @@ export class ResourceService {
     private resourceRepository: Repository<Resource>,
   ) {}
 
-  create(resource: Resource) {
-    return this.resourceRepository.save(resource);
+  async create(action: string, createResourceDto: CreateResourceDto): Promise<Resource> {
+    try {
+      const newResource = this.resourceRepository.create(createResourceDto);
+      return await this.resourceRepository.save(newResource);
+    } catch (error) {
+      throw new BadRequestException(error.message);
+    }
   }
 
-  findAll() {
-    return this.resourceRepository.find();
+  async findAll(action: string) {
+    return await this.resourceRepository.find();
   }
 
-  findOne(id: number) {
+  findOne(action: string, id: number) {
     return this.resourceRepository.findOne({ where: { id } });
   }
-
-  update(id: number, resource: Resource) {
-    return this.resourceRepository.update(id, resource);
+  
+  async update(action: string, id: number, updateResourceDto: UpdateResourceDto): Promise<UpdateResult> {
+    try {
+      const updatedResource = this.resourceRepository.update(id, updateResourceDto);
+      return await updatedResource;
+    } catch (error) {
+      throw new BadRequestException(error.message);
+    }
   }
 
-  remove(id: number) {
-    return this.resourceRepository.delete(id);
+  async remove(action: string, id: number) {
+    try {
+      const deletedResource = this.resourceRepository.delete(id);
+      return await deletedResource;
+    } catch (error) {
+      throw new BadRequestException(error.message);
+    }
   }
 }
