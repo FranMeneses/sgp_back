@@ -17,13 +17,12 @@ export class TeamService {
     async create(action: string, createTeamDto: CreateTeamDto): Promise<Team> {
         try {
             const newTeam = this.teamRepository.create(createTeamDto);
-            if (createTeamDto.projectId) {
-                const project = await this.projectRepository.findOne(createTeamDto.projectId);
-                if (!project) {
-                    throw new BadRequestException('Project not found');
-                }
-                newTeam.project = project;
+            const project = await this.projectRepository.findOne(createTeamDto.projectId);
+            if (!project) {
+                throw new BadRequestException('Project not found');
             }
+            newTeam.project = project;
+
             return await this.teamRepository.save(newTeam);
         } catch (error) {
             throw new BadRequestException(error.message);
