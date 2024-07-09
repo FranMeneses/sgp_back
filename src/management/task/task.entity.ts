@@ -2,6 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany, OneToOne,
 import { Project } from '../project/project.entity';
 import { Comment } from '../comment/comment.entity';
 import { TeamParticipant } from '../team-participant/team-participant.entity';
+import { Notification } from 'src/graphics/notification/notification.entity';
 
 @Entity()
 export class Task {
@@ -31,4 +32,7 @@ export class Task {
 
     @OneToMany(() => Comment, comment => comment.task)
     comments: Comment[];
+
+    @OneToOne(() => Notification, notification => notification.task)
+    notification: Notification[];
 }
