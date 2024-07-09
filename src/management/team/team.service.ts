@@ -5,6 +5,7 @@ import { Repository, UpdateResult } from 'typeorm';
 import { CreateTeamDto } from './create-team.dto';
 import { UpdateTeamDto } from './update-team.dto';
 import { ProjectService } from '../project/project.service';
+import { ProjectMSG } from 'src/constants';
 
 @Injectable()
 export class TeamService {
@@ -17,12 +18,11 @@ export class TeamService {
     async create(action: string, createTeamDto: CreateTeamDto): Promise<Team> {
         try {
             const newTeam = this.teamRepository.create(createTeamDto);
-            const project = await this.projectRepository.findOne(createTeamDto.projectId);
+            const project = await this.projectRepository.findOne(ProjectMSG.FIND_ONE, createTeamDto.projectId);
             if (!project) {
                 throw new BadRequestException('Project not found');
             }
             newTeam.project = project;
-
             return await this.teamRepository.save(newTeam);
         } catch (error) {
             throw new BadRequestException(error.message);

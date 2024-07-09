@@ -1,7 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, UpdateResult } from 'typeorm';
 import { Project } from './project.entity';
+import { CreateProjectDto } from './create-project.dto';
+import { UpdateProjectDto } from './update-project.dto';
 
 @Injectable()
 export class ProjectService {
@@ -10,23 +12,38 @@ export class ProjectService {
     private projectRepository: Repository<Project>,
   ) {}
 
-  create(project: Project) {
-    return this.projectRepository.save(project);
+  async create(action: string, createProject: CreateProjectDto): Promise<Project> {
+    try {
+      const newProject = this.projectRepository.create(createProject);
+      return await this.projectRepository.save(newProject);
+    } catch (error) {
+      throw new BadRequestException(error.message);
+    }
   }
 
-  findAll() {
-    return this.projectRepository.find();
+  async findAll(action: string) {
+    return await this.projectRepository.find();
   }
 
-  findOne(id: number) {
-    return this.projectRepository.findOne({ where: { id } });
+  async findOne(action:string, id: number) {
+    return await this.projectRepository.findOne({ where: { id } });
   }
 
-  update(id: number, project: Project) {
-    return this.projectRepository.update(id, project);
+  async update(action: string, id: number, updatedProjectDto: UpdateProjectDto): Promise<UpdateResult>{
+    try {
+      const updatedProject = this.projectRepository.update(id, updatedProjectDto);
+      return await updatedProject;
+    } catch (error) {
+      throw new BadRequestException(error.message);
+    }
   }
 
-  remove(id: number) {
-    return this.projectRepository.delete(id);
+  async remove(action:string, id: number) {
+    try {
+      const deletedProject = this.projectRepository.delete(id);
+      return await deletedProject;
+    } catch (error) {
+      throw new BadRequestException(error.message);
+    }
   }
 }
