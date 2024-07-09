@@ -9,4 +9,4 @@ import { NotificationResolver } from './notification.resolver';
   controllers: [],
   providers: [NotificationService, NotificationResolver],
 })
-export class NotificacionModule {}
+export class NotificationModule {}
