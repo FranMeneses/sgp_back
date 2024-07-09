@@ -1,8 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, UpdateResult } from 'typeorm';
 import { Task } from './task.entity';
 import { Equal } from 'typeorm';
+import { CreateTaskDto } from './create-task.dto';
+import { UpdateTaskDto } from './update-task.dto';
 
 @Injectable()
 export class TaskService {
@@ -11,12 +13,17 @@ export class TaskService {
     private taskRepository: Repository<Task>,
   ) {}
 
-  create(task: Task) {
-    return this.taskRepository.save(task);
+  async create(action: string, createTaskDto: CreateTaskDto): Promise<Task> {
+    try {
+      const newTask = this.taskRepository.create(createTaskDto);
+      return await this.taskRepository.save(newTask);
+    } catch (error) {
+      throw new BadRequestException(error.message);
+    }
   }
 
-  findAll() {
-    return this.taskRepository.find();
+  async findAll(action: string) {
+    return await this.taskRepository.find();
   }
 
   findOne(id: number) {

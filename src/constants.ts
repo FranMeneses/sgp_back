@@ -13,3 +13,26 @@ export enum ParticipantMSG {
     UPDATE = 'UPDATE_PARTICIPANT',
     DELETE = 'DELETE_PARTICIPANT',
 }
+
+export enum TaskMSG {
+    CREATE = 'CREATE_TASK',
+    FIND_ALL = 'FIND_TASKS',
+    FIND_ONE = 'FIND_TASK',
+    UPDATE = 'UPDATE_TASK',
+    DELETE = 'DELETE_TASK',
+}
+export enum TeamMSG {
+    CREATE = 'CREATE_TEAM',
+    FIND_ALL = 'FIND_TEAMS',
+    FIND_ONE = 'FIND_TEAM',
+    UPDATE = 'UPDATE_TEAM',
+    DELETE = 'DELETE_TEAM',
+}
+
+export enum ProjectMSG {
+    CREATE = 'CREATE_PROJECT',
+    FIND_ALL = 'FIND_PROJECTS',
+    FIND_ONE = 'FIND_PROJECT',
+    UPDATE = 'UPDATE_PROJECT',
+    DELETE = 'DELETE_PROJECT',
+}
