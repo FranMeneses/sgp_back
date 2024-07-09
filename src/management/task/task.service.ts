@@ -1,10 +1,9 @@
-import { Injectable, BadRequestException } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, UpdateResult } from 'typeorm';
-import { Task } from './task.entity';
-import { Equal } from 'typeorm';
-import { CreateTaskDto } from './create-task.dto';
-import { UpdateTaskDto } from './update-task.dto';
+import { Injectable, BadRequestException } from "@nestjs/common";
+import { InjectRepository } from "@nestjs/typeorm";
+import { Repository, UpdateResult } from "typeorm";
+import { CreateTaskDto } from "./create-task.dto";
+import { Task } from "./task.entity";
+import { UpdateTaskDto } from "./update-task.dto";
 
 @Injectable()
 export class TaskService {
@@ -26,19 +25,25 @@ export class TaskService {
     return await this.taskRepository.find();
   }
 
-  findOne(id: number) {
-    return this.taskRepository.findOne({ where: { id } });
+  async findOne(action: string, id: number) {
+    return await this.taskRepository.findOne({ where: { id } });
   }
 
-  findTaskByProjectId(projectId: number) {
-    return this.taskRepository.find({ where: { project: Equal(projectId) } });
+  async update(action: string, id: number, updateTaskDto: UpdateTaskDto): Promise<UpdateResult> {
+    try {
+      const updatedTask = this.taskRepository.update(id, updateTaskDto);
+      return await updatedTask;
+    } catch (error) {
+      throw new BadRequestException(error.message);
+    }
   }
 
-  update(id: number, task: Task) {
-    return this.taskRepository.update(id, task);
-  }
-
-  remove(id: number) {
-    return this.taskRepository.delete(id);
+  async remove(action: string, id: number) {
+    try {
+      const deletedTask = this.taskRepository.delete(id);
+      return await deletedTask;
+    } catch (error) {
+      throw new BadRequestException(error.message);
+    }
   }
 }
