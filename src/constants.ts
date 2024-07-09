@@ -44,3 +44,11 @@ export enum CommentMSG {
     UPDATE = 'UPDATE_COMMENT',
     DELETE = 'DELETE_COMMENT',
 }
+
+export enum MeetingMSG {
+    CREATE = 'CREATE_MEETING',
+    FIND_ALL = 'FIND_MEETINGS',
+    FIND_ONE = 'FIND_MEETING',
+    UPDATE = 'UPDATE_MEETING',
+    DELETE = 'DELETE_MEETING',
+}
