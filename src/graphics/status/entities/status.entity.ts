@@ -5,8 +5,8 @@ import {
   OneToOne,
   Column,
 } from 'typeorm';
-import { Participant } from '../../participant/entities/participant.entity';
-import { Task } from '../../task/task.entity';
+import { Participant } from 'src/management/participant/participant.entity';
+import { Task } from 'src/management/task/task.entity';
 
 @Entity()
 export class Status {

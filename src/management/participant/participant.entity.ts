@@ -2,6 +2,7 @@ import { Entity, Column, OneToMany, PrimaryGeneratedColumn, ManyToMany, JoinTabl
 import { Comment} from "../comment/comment.entity";
 import { Meeting } from "../meeting/meeting.entity";
 import { TeamParticipant } from "../team-participant/team-participant.entity";
+import { ParticipantConversation } from "src/communications/participant_conversation.entity";
 
 @Entity()
 export class Participant {
@@ -25,6 +26,9 @@ export class Participant {
 
     @OneToOne(() => TeamParticipant, teamParticipant => teamParticipant.id, { eager: true })
     teamParticipant: TeamParticipant;
+
+    @OneToOne(() => ParticipantConversation, participantConversation => participantConversation.id, { eager: true })
+    participantConversation: ParticipantConversation;
 
     @OneToMany(() => Comment, comment => comment.participant)
     comments: Comment[];

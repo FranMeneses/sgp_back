@@ -20,6 +20,7 @@ import { DocumentsManagementModule } from './documents_management/documents_mana
 import { DocumentsManagementService } from './documents_management/documents_management.service';
 import { DocumentsManagementController } from './documents_management/documents_management.controller';
 import { GraphQLModule } from '@nestjs/graphql';
+import { CommunicationsService } from './communications/communications.service';
 
 dotenv.config();
 
@@ -58,6 +59,6 @@ dotenv.config();
     DocumentsManagementModule,
    ],
   controllers: [AppController, DocumentsManagementController],
-  providers: [AppService, DocumentsManagementService],
+  providers: [AppService, DocumentsManagementService, CommunicationsService],
 })
 export class AppModule {}

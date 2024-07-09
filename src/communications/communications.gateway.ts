@@ -1,8 +1,11 @@
 import { SubscribeMessage, WebSocketGateway, OnGatewayInit, WebSocketServer, OnGatewayConnection, OnGatewayDisconnect } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Message } from './entity/message.entity';
-import { Repository } from 'typeorm';
+import { Message } from './message.entity';
+import { CommunicationsService } from './communications.service';
+import { ParticipantService } from 'src/management/participant/participant.service';
+import { ParticipantMSG, ProjectMSG } from 'src/constants';
+import { ProjectService } from 'src/management/project/project.service';
 
 @WebSocketGateway({cors: true})
 export class ChatGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
@@ -11,16 +14,21 @@ export class ChatGateway implements OnGatewayInit, OnGatewayConnection, OnGatewa
 
   constructor(
     @InjectRepository(Message)
-    private messageRepository: Repository<Message>,
+    private readonly communicationsService: CommunicationsService,
+    private readonly participantService: ParticipantService,
+    private readonly projectService: ProjectService
   ) {}
 
   @SubscribeMessage('chatToServer')
-  async handleMessage(client: Socket, message: { sender: string, room: string, message: string }): Promise<void> {
+  async handleMessage(client: Socket, message: { sender: number, room: string, message: string }) {
     client.join(message.room);
     this.server.to(message.room).emit('chatToClient', message);
+    
+    const participant_conversation = this.participantService.findOne(ParticipantMSG.FIND_ONE, message.sender);
+    if (!participant_conversation) {
+      throw new Error('Participant conversation not found');
+    }
 
-    const newMessage = this.messageRepository.create({id_conversation: message.room, id_participant: message.sender, content: message.message, date: new Date()});
-    await this.messageRepository.save(newMessage);
   }
 
   afterInit(server: Server) {
