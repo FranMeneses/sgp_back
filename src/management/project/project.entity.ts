@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
-import { Team } from '../team/team.entity';
+import { Team } from '../team/entity/team.entity';
 import { Task } from '../task/task.entity';
 import { Resource } from '../resource/resource.entity';
 import { Comment } from '../comment/comment.entity';

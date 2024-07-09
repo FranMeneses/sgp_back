@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Task } from './task.entity';
+import { Equal } from 'typeorm';
 
 @Injectable()
 export class TaskService {
@@ -20,6 +21,10 @@ export class TaskService {
 
   findOne(id: number) {
     return this.taskRepository.findOne({ where: { id } });
+  }
+
+  findTaskByProjectId(projectId: number) {
+    return this.taskRepository.find({ where: { project: Equal(projectId) } });
   }
 
   update(id: number, task: Task) {
