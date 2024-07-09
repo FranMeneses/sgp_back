@@ -22,7 +22,6 @@ export class TeamService {
                 throw new BadRequestException('Project not found');
             }
             newTeam.project = project;
-
             return await this.teamRepository.save(newTeam);
         } catch (error) {
             throw new BadRequestException(error.message);
