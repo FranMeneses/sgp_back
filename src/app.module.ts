@@ -11,16 +11,13 @@ import { CommentModule } from './management/comment/comment.module';
 import { ResourceModule } from './management/resource/resource.module';
 import { MeetingModule } from './management/meeting/meeting.module';
 import { ParticipantModule } from './management/participant/participant.module';
-import { GraphicsModule } from './graphics/graphics.module';
-import { StatusModule } from './management/status/status.module';
-import { VersionModule } from './management/version/version.module';
-import { NotificacionModule } from './management/notificacion/notificacion.module';
 import { TeamParticipantModule } from './management/team-participant/team-participant.module';
 import { DocumentsManagementModule } from './documents_management/documents_management.module';
 import { DocumentsManagementService } from './documents_management/documents_management.service';
 import { DocumentsManagementController } from './documents_management/documents_management.controller';
 import { GraphQLModule } from '@nestjs/graphql';
-import { CommunicationsService } from './communications/communications.service';
+import { StatusChangedModule } from './graphics/status_changed/status_changed.module';
+import { NotificationModule } from './graphics/notification/notification.module';
 
 dotenv.config();
 
@@ -43,20 +40,18 @@ dotenv.config();
       },
     }),
     ChatGateway,
-    ProjectModule,
-    TeamModule,
-    TaskModule,
+    GraphQLModule,
     CommentModule,
-    ResourceModule,
     MeetingModule,
     ParticipantModule,
-    GraphicsModule,
-    StatusModule,
-    VersionModule,
-    NotificacionModule,
+    ProjectModule,
+    ResourceModule,
+    TaskModule,
+    TeamModule,
     TeamParticipantModule,
-    GraphQLModule,
     DocumentsManagementModule,
+    NotificationModule,
+    StatusChangedModule,
    ],
   controllers: [AppController, DocumentsManagementController],
   providers: [AppService, DocumentsManagementService, CommunicationsService],
