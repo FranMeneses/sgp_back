@@ -1,10 +1,9 @@
 import { Injectable, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, UpdateResult } from 'typeorm';
 import { Resource } from './resource.entity';
 import { CreateResourceDto } from './create-resource.dto';
 import { UpdateResourceDto } from './update-resource.dto';
-import { UpdateResult } from 'typeorm';
 
 @Injectable()
 export class ResourceService {
@@ -26,8 +25,8 @@ export class ResourceService {
     return await this.resourceRepository.find();
   }
 
-  findOne(action: string, id: number) {
-    return this.resourceRepository.findOne({ where: { id } });
+  async findOne(action: string, id: number) {
+    return await this.resourceRepository.findOne({ where: { id } });
   }
   
   async update(action: string, id: number, updateResourceDto: UpdateResourceDto): Promise<UpdateResult> {
