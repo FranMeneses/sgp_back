@@ -80,11 +80,11 @@ export class CommunicationsService {
         }
     }
 
-    // async findMessagesByConversation(id_conversation: number): Promise<Message[]> {
-    //     return await this.messageRepository.find({ where: { id_conversation } });
-    // }
+    async findMessagesByConversation(id_conversation: Conversation): Promise<Message[]> {
+        return await this.messageRepository.find({ where: { id_conversation:id_conversation } });
+    }
     
-    // async conversationsByProjects(id_project: number): Promise<Conversation[]> {
-    //     return await this.conversationRepository.find({ where: { id_project } });
-    // }
+    async findconversationByProjects(id_project: number): Promise<Conversation> {
+        return await this.conversationRepository.findOne({ where: { id_project: { id: id_project } } });
+    }
 }
