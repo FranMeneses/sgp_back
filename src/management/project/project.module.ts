@@ -8,5 +8,6 @@ import { ProjectResolver } from './project.resolver';
   imports: [TypeOrmModule.forFeature([Project])],
   controllers: [],
   providers: [ProjectService, ProjectResolver],
+  exports: [ProjectService],
 })
 export class ProjectModule {}

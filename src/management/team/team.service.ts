@@ -6,13 +6,14 @@ import { CreateTeamDto } from './create-team.dto';
 import { UpdateTeamDto } from './update-team.dto';
 import { ProjectService } from '../project/project.service';
 import { ProjectMSG } from 'src/constants';
+import { Project } from '../project/project.entity';
 
 @Injectable()
 export class TeamService {
     constructor(
         @InjectRepository(Team)
         private teamRepository: Repository<Team>,
-        private readonly projectRepository: ProjectService
+        private readonly projectRepository: ProjectService,
     ) {}
 
     async create(action: string, createTeamDto: CreateTeamDto): Promise<Team> {

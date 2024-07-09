@@ -7,6 +7,7 @@ import { ParticipantResolver } from './participant.resolver';
 @Module({
   imports: [TypeOrmModule.forFeature([Participant])],
   providers: [ParticipantService, ParticipantResolver],
-  controllers: []
+  controllers: [],
+  exports: [ParticipantService],
 })
 export class ParticipantModule {}
