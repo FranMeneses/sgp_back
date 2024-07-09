@@ -1,6 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany, OneToOne, JoinColumn } from 'typeorm';
 import { Project } from '../project/project.entity';
 import { Comment } from '../comment/comment.entity';
+import { TeamParticipant } from '../team-participant/team-participant.entity';
 
 @Entity()
 export class Task {
@@ -24,6 +25,9 @@ export class Task {
 
     @ManyToOne(() => Project, project => project.tasks)
     project: Project;
+
+    @ManyToOne(() => TeamParticipant, teamParticipant => teamParticipant.tasks)
+    teamParticipant: TeamParticipant;
 
     @OneToMany(() => Comment, comment => comment.task)
     comments: Comment[];

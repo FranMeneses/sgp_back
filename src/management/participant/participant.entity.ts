@@ -1,6 +1,7 @@
-import { Entity, Column, OneToMany, PrimaryGeneratedColumn, ManyToMany, JoinTable} from "typeorm";
+import { Entity, Column, OneToMany, PrimaryGeneratedColumn, ManyToMany, JoinTable, OneToOne} from "typeorm";
 import { Comment} from "../comment/comment.entity";
 import { Meeting } from "../meeting/meeting.entity";
+import { TeamParticipant } from "../team-participant/team-participant.entity";
 
 @Entity()
 export class Participant {
@@ -21,6 +22,9 @@ export class Participant {
 
     @Column()
     rut: string;
+
+    @OneToOne(() => TeamParticipant, teamParticipant => teamParticipant.id, { eager: true })
+    teamParticipant: TeamParticipant;
 
     @OneToMany(() => Comment, comment => comment.participant)
     comments: Comment[];

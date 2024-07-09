@@ -1,5 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToOne } from 'typeorm';
 import { Project } from '../project/project.entity';
+import { TeamParticipant } from '../team-participant/team-participant.entity';
 
 @Entity()
 export class Team {
@@ -17,4 +18,7 @@ export class Team {
 
     @ManyToOne(() => Project, project => project.teams)
     project: Project;
+
+    @OneToOne(() => TeamParticipant, teamParticipant => teamParticipant.id, { eager: true })
+    teamParticipant: TeamParticipant;
 }
