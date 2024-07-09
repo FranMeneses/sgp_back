@@ -1,9 +1,12 @@
 import { Module } from '@nestjs/common';
 import { TeamParticipantService } from './team-participant.service';
-import { TeamParticipantController } from './team-participant.controller';
+import { TeamParticipantResolver } from './team-participant.resolver';
+import { TeamParticipant } from './team-participant.entity';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
-  controllers: [TeamParticipantController],
-  providers: [TeamParticipantService],
+  imports: [TypeOrmModule.forFeature([TeamParticipant])],
+  controllers: [],
+  providers: [TeamParticipantService, TeamParticipantResolver],
 })
 export class TeamParticipantModule {}
