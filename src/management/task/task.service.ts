@@ -29,6 +29,12 @@ export class TaskService {
     return await this.taskRepository.findOne({ where: { id } });
   }
 
+  async findTasksByProjectId (action:string, projectId: number){
+    return this.taskRepository.find({
+      where: { project: { id: projectId } },
+    });
+  }
+
   async update(action: string, id: number, updateTaskDto: UpdateTaskDto): Promise<UpdateResult> {
     try {
       const updatedTask = this.taskRepository.update(id, updateTaskDto);

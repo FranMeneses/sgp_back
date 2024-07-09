@@ -24,6 +24,11 @@ export class TaskResolver {
     return this.taskService.findOne(TaskMSG.FIND_ONE, id);
   }
 
+  @Query('FIND_TASKS_BY_PROJECT')
+  findTasksByProjectId(@Args('project') project: number){
+    return this.taskService.findTasksByProjectId(TaskMSG.FIND_BY_PROJECT,project);
+  }
+
   @Mutation('UPDATE_TASK')
   updateResource(@Args('id') id:number, @Args('updateTaskDto') updateTaskDto: UpdateTaskDto) {
     return this.taskService.update(TaskMSG.UPDATE, id, updateTaskDto);

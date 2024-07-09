@@ -3,7 +3,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import * as dotenv from 'dotenv';
 import { AppService } from './app.service';
-import { ChatGateway } from './communications/communications.gateway';
 import { ProjectModule } from './management/project/project.module';
 import { TeamModule } from './management/team/team.module';
 import { TaskModule } from './management/task/task.module';
@@ -18,6 +17,7 @@ import { DocumentsManagementController } from './documents_management/documents_
 import { GraphQLModule } from '@nestjs/graphql';
 import { StatusChangedModule } from './graphics/status_changed/status_changed.module';
 import { NotificationModule } from './graphics/notification/notification.module';
+import { CommunicationsModule } from './communications/communications.module';
 
 dotenv.config();
 
@@ -39,7 +39,7 @@ dotenv.config();
         },
       },
     }),
-    ChatGateway,
+    CommunicationsModule,
     GraphQLModule,
     CommentModule,
     MeetingModule,
@@ -52,8 +52,9 @@ dotenv.config();
     DocumentsManagementModule,
     NotificationModule,
     StatusChangedModule,
+    CommunicationsModule,
    ],
   controllers: [AppController, DocumentsManagementController],
-  providers: [AppService, DocumentsManagementService, CommunicationsService],
+  providers: [AppService, DocumentsManagementService],
 })
 export class AppModule {}

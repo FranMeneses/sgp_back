@@ -5,7 +5,6 @@ import { Message } from './message.entity';
 import { CommunicationsService } from './communications.service';
 import { ParticipantService } from 'src/management/participant/participant.service';
 import { ParticipantMSG } from 'src/constants';
-import { ProjectService } from 'src/management/project/project.service';
 import { Repository } from 'typeorm';
 import { Conversation } from './conversation.entity';
 import { ParticipantConversation } from './participant_conversation.entity';
@@ -40,7 +39,11 @@ export class ChatGateway implements OnGatewayInit, OnGatewayConnection, OnGatewa
     if(!conversation){
       const newConversation = await this.communicationsService.createConversation({id_project:message.room});
 
+      this.ConversationRepository.save(newConversation);
+
       const newParticipantConversation = await this.communicationsService.createParticipantConversation({id_conversation:newConversation.id, id_participant:participant_conversation.id});
+
+      this.ParticipantConversationRepository.save(newParticipantConversation);
 
       const newMessage = await this.communicationsService.createMessage({id_participant:newParticipantConversation.id, id_conversation:newConversation.id,content:message.message,date:new Date()})
 
