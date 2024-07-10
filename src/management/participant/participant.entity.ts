@@ -44,8 +44,10 @@ export class Participant {
     @Field(() => [Comment])
     comments: Comment[];
 
+    /*
     @ManyToMany(() => Meeting, meeting => meeting.participants)
     @JoinTable()
     @Field(() => [Meeting])
     meetings: Meeting[];
+    */
 }

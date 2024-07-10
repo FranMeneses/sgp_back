@@ -28,7 +28,7 @@ export class TeamParticipantService {
         throw new BadRequestException('Team not found');
       }
       
-      const newTeamParticipant = this.teamParticipantRepository.create({id_participant: participant, id_team: team, role: createTeamParticipantDto.role});
+      const newTeamParticipant = this.teamParticipantRepository.create({participant: participant, team: team, role: createTeamParticipantDto.role});
       
       return await this.teamParticipantRepository.save(newTeamParticipant);
 

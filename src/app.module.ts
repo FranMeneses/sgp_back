@@ -8,7 +8,6 @@ import { TeamModule } from './management/team/team.module';
 import { TaskModule } from './management/task/task.module';
 import { CommentModule } from './management/comment/comment.module';
 import { ResourceModule } from './management/resource/resource.module';
-import { MeetingModule } from './management/meeting/meeting.module';
 import { ParticipantModule } from './management/participant/participant.module';
 import { TeamParticipantModule } from './management/team-participant/team-participant.module';
 import { DocumentsManagementModule } from './documents_management/documents_management.module';
@@ -32,17 +31,13 @@ dotenv.config();
       database: process.env.DB_DATABASE,
       entities: [],
       synchronize: true,
-      ssl: process.env.DB_SSL === 'true',
-      extra: {
-        ssl: {
-          rejectUnauthorized: false,
-        },
-      },
+      ssl: {
+        rejectUnauthorized: false, // Esta línea desactiva la verificación del certificado SSL
+      }
     }),
     CommunicationsModule,
     GraphModule,
     CommentModule,
-    MeetingModule,
     ParticipantModule,
     ProjectModule,
     ResourceModule,

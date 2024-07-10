@@ -1,0 +1,301 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Archive {
+  date: DateTime!
+  id: ID!
+  name: String!
+  project: Project!
+  type: String!
+}
+
+type Comment {
+  content: String!
+  date: DateTime!
+  id: ID!
+  participant: Participant!
+  project: Project!
+  task: Task!
+}
+
+type Conversation {
+  id: ID!
+  id_project: Project!
+}
+
+input CreateCommentDto {
+  content: String!
+  date: DateTime!
+  project_id: Float!
+  task_id: Float!
+}
+
+input CreateNotificationDto {
+  content: String!
+  date: DateTime
+  id: Float!
+  taskId: Float!
+}
+
+input CreateParticipantDto {
+  email: String!
+  last_name: String!
+  name: String!
+  participantConversationId: Float!
+  password: String!
+  rut: String!
+  teamParticipantId: Float!
+}
+
+input CreateProjectDto {
+  amount_participants: Float!
+  end_date: DateTime!
+  name: String!
+  start_date: DateTime!
+}
+
+input CreateResourceDto {
+  category: String!
+  content: String!
+  projectId: Float!
+}
+
+input CreateStatusChangedDto {
+  actual_status: String!
+  date: DateTime!
+  id: Float!
+  previous_status: String!
+  taskId: Float!
+}
+
+input CreateTaskDto {
+  description: String!
+  end_date: DateTime!
+  name: String!
+  projectId: Float!
+  start_date: DateTime!
+  status: String!
+}
+
+input CreateTeamDto {
+  description: String!
+  name: String!
+  projectId: Float!
+  type: String!
+}
+
+input CreateTeamParticipantDto {
+  id_participant: Float
+  id_task: [Float!]
+  id_team: Float
+  role: String!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Meeting {
+  date: DateTime!
+  description: String!
+  id: ID!
+  name: String!
+  project: Project!
+}
+
+type Mutation {
+  CREATE_COMMENT(createCommentDto: CreateCommentDto!): Comment!
+  CREATE_NOTIFICATION(createNotificationDto: CreateNotificationDto!): Notification!
+  CREATE_PARTICIPANT(createParticipantDto: CreateParticipantDto!): Participant!
+  CREATE_PROJECT(createProjectDto: CreateProjectDto!): Project!
+  CREATE_RESOURCE(createResourceDto: CreateResourceDto!): Resource!
+  CREATE_STATUS_CHANGED(createStatusChangedDto: CreateStatusChangedDto!): StatusChanged!
+  CREATE_TASK(createTaskDto: CreateTaskDto!): Task!
+  CREATE_TEAM(createTeamDto: CreateTeamDto!): Team!
+  CREATE_TEAM_PARTICIPANT(createTeamParticipantDto: CreateTeamParticipantDto!): TeamParticipant!
+  DELETE_COMMENT(id: Float!): Comment!
+  DELETE_NOTIFICATION(id: Float!): Notification!
+  DELETE_PARTICIPANT(id: Float!): Participant!
+  DELETE_PROJECT(id: Float!): Project!
+  DELETE_RESOURCE(id: Float!): Resource!
+  DELETE_STATUS_CHANGED(id: Float!): StatusChanged!
+  DELETE_TASK(id: Float!): Task!
+  DELETE_TEAM(id: Float!): Team!
+  DELETE_TEAM_PARTICIPANT(id: Float!): TeamParticipant!
+  UPDATE_COMMENT(id: Float!, updateCommentDto: UpdateCommentDto!): Comment!
+  UPDATE_NOTIFICATION(id: Float!, updateNotificationDto: UpdateNotificationDto!): Notification!
+  UPDATE_PARTICIPANT(id: Float!, updateParticipantDto: UpdateParticipantDto!): Participant!
+  UPDATE_PROJECT(id: Float!, updateProjectDto: UpdateProjectDto!): Project!
+  UPDATE_RESOURCE(id: Float!, updateResourceDto: UpdateResourceDto!): Resource!
+  UPDATE_STATUS_CHANGED(id: Float!, updateStatusChangedDto: UpdateStatusChangedDto!): StatusChanged!
+  UPDATE_TASK(id: Float!, updateTaskDto: UpdateTaskDto!): Task!
+  UPDATE_TEAM(id: Float!, updateTeamDto: UpdateTeamDto!): Team!
+  UPDATE_TEAM_PARTICIPANT(id: Float!, updateTeamParticipantDto: UpdateTeamParticipantDto!): TeamParticipant!
+}
+
+type Notification {
+  content: String!
+  date: DateTime!
+  id: ID!
+  task: Task
+}
+
+type Participant {
+  comments: [Comment!]!
+  email: String!
+  id: ID!
+  last_name: String!
+  name: String!
+  participantConversation: ParticipantConversation!
+  password: String!
+  rut: String!
+  teamParticipant: TeamParticipant!
+}
+
+type ParticipantConversation {
+  id: ID!
+  id_conversation: Conversation!
+  id_participant: Participant!
+}
+
+type Project {
+  amount_participants: Float!
+  archives: [Archive!]!
+  comments: [Comment!]!
+  end_date: DateTime!
+  id: ID!
+  meetings: [Meeting!]!
+  name: String!
+  resources: [Resource!]!
+  start_date: DateTime!
+  tasks: [Task!]!
+  teams: [Team!]!
+}
+
+type Query {
+  FIND_COMMENT(id: Float!): Comment!
+  FIND_COMMENTS: [Comment!]!
+  FIND_NOTIFICATION(id: Float!): Notification!
+  FIND_NOTIFICATIONS: [Notification!]!
+  FIND_PARTICIPANT(id: Float!): Participant!
+  FIND_PARTICIPANTS: [Participant!]!
+  FIND_PROJECT(id: Float!): Project!
+  FIND_PROJECTS: [Project!]!
+  FIND_RESOURCE(id: Float!): Resource!
+  FIND_RESOURCES: [Resource!]!
+  FIND_STATUSES_CHANGED: [StatusChanged!]!
+  FIND_STATUS_CHANGED(id: Float!): StatusChanged!
+  FIND_TASK(id: Float!): Task!
+  FIND_TASKS: [Task!]!
+  FIND_TASK_BY_PROJECT(project: Float!): [Task!]!
+  FIND_TEAM(id: Float!): Team!
+  FIND_TEAMS: [Team!]!
+  FIND_TEAM_PARTICIPANT(id: Float!): TeamParticipant!
+  FIND_TEAM_PARTICIPANTS: [TeamParticipant!]!
+}
+
+type Resource {
+  category: String!
+  content: String!
+  id: ID!
+  project: Project!
+}
+
+type StatusChanged {
+  actual_status: String!
+  date: DateTime!
+  id: ID!
+  previous_status: String!
+  task: Task
+}
+
+type Task {
+  comments: [Comment!]!
+  description: String!
+  end_date: DateTime!
+  id: ID!
+  name: String!
+  notification: Notification!
+  project: Project!
+  start_date: DateTime!
+  status: String!
+  statusChanged: StatusChanged!
+  teamParticipant: TeamParticipant!
+}
+
+type Team {
+  description: String!
+  id: ID!
+  name: String!
+  project: Project!
+  teamParticipant: TeamParticipant!
+  type: String!
+}
+
+type TeamParticipant {
+  id: ID!
+  participant: Participant!
+  role: String!
+  tasks: [Task!]!
+  team: Team!
+}
+
+input UpdateCommentDto {
+  content: String
+  project_id: Float
+  task_id: Float
+}
+
+input UpdateNotificationDto {
+  content: String
+  date: DateTime
+}
+
+input UpdateParticipantDto {
+  email: String
+  last_name: String
+  name: String
+  participantConversationId: Float
+  password: String
+  rut: String
+  teamParticipantId: Float
+}
+
+input UpdateProjectDto {
+  amount_participants: Float
+  end_date: DateTime
+  name: String
+  start_date: DateTime
+}
+
+input UpdateResourceDto {
+  category: String
+  content: String
+  projectId: Float
+}
+
+input UpdateStatusChangedDto {
+  actual_status: String!
+  previous_status: String!
+}
+
+input UpdateTaskDto {
+  description: String
+  end_date: DateTime
+  name: String
+  projectId: Float
+  start_date: DateTime
+  status: String
+}
+
+input UpdateTeamDto {
+  description: String!
+  name: String!
+  type: String!
+}
+
+input UpdateTeamParticipantDto {
+  role: String
+}
