@@ -1,6 +1,8 @@
+import { InputType } from '@nestjs/graphql';
 import { IsNotEmpty, IsString, IsDate, IsNumber, IsNegative } from 'class-validator';
 import { Task } from 'src/management/task/task.entity';
 
+@InputType()
 export class CreateStatusChangedDto {
     @IsNotEmpty()
     @IsNumber()

@@ -1,5 +1,7 @@
+import { InputType } from '@nestjs/graphql';
 import { IsString, IsNotEmpty, IsNumber } from 'class-validator';
 
+@InputType()
 export class CreateTeamDto {
     @IsNotEmpty()
     @IsString()

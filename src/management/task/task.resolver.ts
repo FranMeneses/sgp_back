@@ -9,33 +9,33 @@ import { TaskMSG } from 'src/constants';
 export class TaskResolver {
   constructor(private readonly taskService: TaskService) {}
 
-  @Mutation('CREATE_TASK')
+  @Mutation(() => Task, { name: 'CREATE_TASK' })
   createTask(@Args('createTaskDto') createTaskDto: CreateTaskDto) {
     return this.taskService.create(TaskMSG.CREATE, createTaskDto);
   }
 
-  @Query('FIND_TASKS')
+  @Query(() => [Task], { name: 'FIND_TASKS' })
   findAll() {
     return this.taskService.findAll(TaskMSG.FIND_ALL);
   }
 
-  @Query('FIND_TASK')
+  @Query(() => Task, { name: 'FIND_TASK' })
   findOne(@Args('id') id: number) {
     return this.taskService.findOne(TaskMSG.FIND_ONE, id);
   }
 
-  @Query('FIND_TASKS_BY_PROJECT')
+  @Query(() => [Task], { name: 'FIND_TASK_BY_PROJECT' })
   findTasksByProjectId(@Args('project') project: number){
-    return this.taskService.findTasksByProjectId(TaskMSG.FIND_BY_PROJECT,project);
+    return this.taskService.findTasksByProjectId(TaskMSG.FIND_BY_PROJECT, project);
   }
 
-  @Mutation('UPDATE_TASK')
-  updateResource(@Args('id') id:number, @Args('updateTaskDto') updateTaskDto: UpdateTaskDto) {
+  @Mutation(() => Task, { name: 'UPDATE_TASK' })
+  updateTask(@Args('id') id:number, @Args('updateTaskDto') updateTaskDto: UpdateTaskDto) {
     return this.taskService.update(TaskMSG.UPDATE, id, updateTaskDto);
   }
 
-  @Mutation('DELETE_TASK')
-  removeResource(@Args('id') id: number) {
+  @Mutation(() => Task, { name: 'DELETE_TASK' })
+  removeTask(@Args('id') id: number) {
     return this.taskService.remove(TaskMSG.DELETE, id);
   }
 }

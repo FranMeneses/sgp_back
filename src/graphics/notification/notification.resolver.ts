@@ -9,27 +9,27 @@ import { NotificationMSG } from 'src/constants';
 export class NotificationResolver {
   constructor(private readonly notificationService: NotificationService) {}
 
-  @Mutation('CREATE_NOTIFICATION')
+  @Mutation(() => Notification, { name: 'CREATE_NOTIFICATION' })
   createNotification(@Args('createNotificationDto') createNotificationDto: CreateNotificationDto) {
     return this.notificationService.create(NotificationMSG.CREATE, createNotificationDto);
   }
 
-  @Query('FIND_NOTIFICATIONS')
+  @Query(() => [Notification], { name: 'FIND_NOTIFICATIONS' })
   findAll() {
     return this.notificationService.findAll(NotificationMSG.FIND_ALL);
   }
 
-  @Query('FIND_NOTIFICATION')
+  @Query(() => Notification, { name: 'FIND_NOTIFICATION' })
   findOne(@Args('id') id: number) {
     return this.notificationService.findOne(NotificationMSG.FIND_ONE, id);
   }
 
-  @Mutation('UPDATE_NOTIFICATION')
+  @Mutation(() => Notification, { name: 'UPDATE_NOTIFICATION' })
   updateNotification(@Args('id') id:number, @Args('updateNotificationDto') updateNotificationDto: UpdateNotificationDto) {
     return this.notificationService.update(NotificationMSG.UPDATE, id, updateNotificationDto);
   }
 
-  @Mutation('DELETE_NOTIFICATION')
+  @Mutation(() => Notification, { name: 'DELETE_NOTIFICATION' })
   removeNotification(@Args('id') id: number) {
     return this.notificationService.remove(NotificationMSG.DELETE, id);
   }

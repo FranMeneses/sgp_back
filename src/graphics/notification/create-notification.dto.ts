@@ -1,5 +1,7 @@
+import { InputType } from '@nestjs/graphql';
 import { IsString, IsNotEmpty, IsOptional, IsNumber, IsDate } from 'class-validator';
 
+@InputType()
 export class CreateNotificationDto {
   @IsNumber()
   @IsNotEmpty()

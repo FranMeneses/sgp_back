@@ -1,5 +1,7 @@
+import { InputType } from '@nestjs/graphql';
 import { IsString, IsOptional, IsInt } from 'class-validator';
 
+@InputType()
 export class UpdateResourceDto {
   @IsOptional()
   @IsString()

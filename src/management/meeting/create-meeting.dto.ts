@@ -1,5 +1,7 @@
+import { InputType } from '@nestjs/graphql';
 import { IsString, IsDate, IsNotEmpty, IsOptional } from 'class-validator';
 
+@InputType()
 export class CreateMeetingDto {
     @IsNotEmpty()
     @IsString()

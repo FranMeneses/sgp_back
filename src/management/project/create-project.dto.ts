@@ -1,6 +1,8 @@
 import { IsNotEmpty, IsString, IsNumber, IsDate } from 'class-validator';
 import { Type } from 'class-transformer';
+import { InputType } from '@nestjs/graphql';
 
+@InputType()
 export class CreateProjectDto {
     @IsNotEmpty()
     @IsString()

@@ -9,27 +9,27 @@ import { MeetingMSG } from 'src/constants';
 export class MeetingResolver {
   constructor(private readonly meetingService: MeetingService) {}
 
-  @Mutation('CREATE_MEETING')
+  @Mutation(() => Meeting, { name: 'CREATE_MEETING' })
   createMeeting(@Args('createMeetingDto') createMeetingDto: CreateMeetingDto) {
     return this.meetingService.create(MeetingMSG.CREATE, createMeetingDto);
   }
 
-  @Query('FIND_MEETINGS')
+  @Query(() => [Meeting], { name: 'FIND_MEETINGS' })
   findAll() {
     return this.meetingService.findAll(MeetingMSG.FIND_ALL);
   }
 
-  @Query('FIND_MEETING')
+  @Query(() => Meeting, { name: 'FIND_MEETING' })
   findOne(@Args('id') id: number) {
     return this.meetingService.findOne(MeetingMSG.FIND_ONE, id);
   }
 
-  @Mutation('UPDATE_MEETING')
+  @Mutation(() => Meeting, { name: 'UPDATE_MEETING' })
   updateMeeting(@Args('id') id:number, @Args('updateMeetingDto') updateMeetingDto: UpdateMeetingDto) {
     return this.meetingService.update(MeetingMSG.UPDATE, id, updateMeetingDto);
   }
 
-  @Mutation('DELETE_MEETING')
+  @Mutation(() => Meeting, { name: 'DELETE_MEETING' })
   removeMeeting(@Args('id') id: number) {
     return this.meetingService.remove(MeetingMSG.DELETE, id);
   }

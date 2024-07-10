@@ -9,27 +9,27 @@ import { CommentMSG } from 'src/constants';
 export class CommentResolver {
   constructor(private readonly commentService: CommentService) {}
 
-  @Mutation('CREATE_COMMENT')
+  @Mutation(() => Comment, { name: 'CREATE_COMMENT' })
   createComment(@Args('createCommentDto') createCommentDto: CreateCommentDto) {
     return this.commentService.create(CommentMSG.CREATE, createCommentDto);
   }
 
-  @Query('FIND_COMMENTS')
+  @Query(() => [Comment], { name: 'FIND_COMMENTS' })
   findAll() {
     return this.commentService.findAll(CommentMSG.FIND_ALL);
   }
 
-  @Query('FIND_COMMENT')
+  @Query(() => Comment, { name: 'FIND_COMMENT' })
   findOne(@Args('id') id: number) {
     return this.commentService.findOne(CommentMSG.FIND_ONE, id);
   }
 
-  @Mutation('UPDATE_COMMENT')
+  @Mutation(() => Comment, { name: 'UPDATE_COMMENT' })
   updateComment(@Args('id') id:number, @Args('updateCommentDto') updateCommentDto: UpdateCommentDto) {
     return this.commentService.update(CommentMSG.UPDATE, id, updateCommentDto);
   }
 
-  @Mutation('DELETE_COMMENT')
+  @Mutation(() => Comment, { name: 'DELETE_COMMENT' })
   removeComment(@Args('id') id: number) {
     return this.commentService.remove(CommentMSG.DELETE, id);
   }

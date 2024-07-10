@@ -1,5 +1,7 @@
+import { InputType } from '@nestjs/graphql';
 import { IsString, IsOptional, IsDate, IsInt } from 'class-validator';
 
+@InputType()
 export class UpdateTaskDto {
     @IsOptional()
     @IsString()

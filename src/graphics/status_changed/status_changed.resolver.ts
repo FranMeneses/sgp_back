@@ -9,27 +9,27 @@ import { StatusChangedMSG } from 'src/constants';
 export class StatusChangedResolver {
   constructor(private readonly statusChangedService: StatusChangedService) {}
 
-  @Mutation('CREATE_STATUS_CHANGED')
+  @Mutation(() => StatusChanged, { name: 'CREATE_STATUS_CHANGED' })
   createStatusChanged(@Args('createStatusChangedDto') createStatusChangedDto: CreateStatusChangedDto) {
     return this.statusChangedService.create(StatusChangedMSG.CREATE, createStatusChangedDto);
   }
 
-  @Query('FIND_STATUS_CHANGEDS')
+  @Query(() => [StatusChanged], { name: 'FIND_STATUSES_CHANGED' })
   findAll() {
     return this.statusChangedService.findAll(StatusChangedMSG.FIND_ALL);
   }
 
-  @Query('FIND_STATUS_CHANGED')
+  @Query(() => StatusChanged, { name: 'FIND_STATUS_CHANGED' })
   findOne(@Args('id') id: number) {
     return this.statusChangedService.findOne(StatusChangedMSG.FIND_ONE, id);
   }
 
-  @Mutation('UPDATE_STATUS_CHANGED')
+  @Mutation(() => StatusChanged, { name: 'UPDATE_STATUS_CHANGED' })
   updateStatusChanged(@Args('id') id:number, @Args('updateStatusChangedDto') updateStatusChangedDto: UpdateStatusChangedDto) {
     return this.statusChangedService.update(StatusChangedMSG.UPDATE, id, updateStatusChangedDto);
   }
 
-  @Mutation('DELETE_STATUS_CHANGED')
+  @Mutation(() => StatusChanged, { name: 'DELETE_STATUS_CHANGED' })
   removeStatusChanged(@Args('id') id: number) {
     return this.statusChangedService.remove(StatusChangedMSG.DELETE, id);
   }
