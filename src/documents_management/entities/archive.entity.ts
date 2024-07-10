@@ -1,4 +1,5 @@
 import { Field, ID, ObjectType } from "@nestjs/graphql";
+import { IsOptional } from "class-validator";
 import { Project } from "src/management/project/project.entity";
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
@@ -22,6 +23,7 @@ export class Archive {
     type:string;
 
     @ManyToOne(() => Project, project => project.tasks)
-    @Field(() => Project)
+    @IsOptional()
+    @Field(() => Project, { nullable: true })
     project: Project;
 }

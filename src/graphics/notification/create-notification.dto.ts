@@ -14,12 +14,12 @@ export class CreateNotificationDto {
   content: string;
 
   @IsDate()
-  @IsOptional()
-  @Field(() => Date, { nullable: true })
+  @IsNotEmpty()
+  @Field(() => Date)
   date: Date;
 
   @IsNumber()
-  @IsNotEmpty()
-  @Field(() => Number)
+  @IsOptional()
+  @Field(() => Number, { nullable: true })
   taskId: number;
 }

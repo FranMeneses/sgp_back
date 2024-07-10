@@ -1,14 +1,16 @@
 import { Field, InputType } from '@nestjs/graphql';
-import { IsNumber, IsString, IsDate } from 'class-validator';
+import { IsNumber, IsString, IsDate, IsOptional } from 'class-validator';
 
 @InputType()
 export class CreateMessageDto {
-  @Field(() => Number)
+  @Field(() => Number, { nullable: true })
   @IsNumber()
+  @IsOptional()
   id_conversation: number;
 
   @IsNumber()
-  @Field(() => Number)
+  @IsOptional()
+  @Field(() => Number, { nullable: true })
   id_participant: number;
 
   @IsString()

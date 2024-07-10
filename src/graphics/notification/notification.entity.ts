@@ -1,4 +1,5 @@
 import { ObjectType, Field, ID } from "@nestjs/graphql";
+import { IsOptional } from "class-validator";
 import { Task } from "src/management/task/task.entity";
 import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
@@ -6,18 +7,19 @@ import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 @ObjectType()
 export class Notification {
     @PrimaryGeneratedColumn()
-    @Field(() => ID) // Exponer el ID como un campo GraphQL
+    @Field(() => ID)
     id: number;
 
     @Column()
-    @Field() // Exponer content como un campo GraphQL
+    @Field(() => String)
     content: string;
 
     @Column()
-    @Field() // Exponer date como un campo GraphQL
+    @Field(() => Date)
     date: Date;
 
     @OneToOne(() => Task, task => task.notification)
-    @Field(() => Task, { nullable: true }) // Exponer task como un campo GraphQL, nullable ya que es una relación OneToOne
+    @IsOptional()
+    @Field(() => Task, { nullable: true })
     task: Task;
 }

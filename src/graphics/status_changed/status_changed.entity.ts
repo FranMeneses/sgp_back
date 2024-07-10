@@ -1,6 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToOne } from 'typeorm';
 import { Task } from 'src/management/task/task.entity';
 import { ObjectType, Field, ID } from '@nestjs/graphql';
+import { IsOptional } from 'class-validator';
 
 @Entity()
 @ObjectType()
@@ -10,18 +11,19 @@ export class StatusChanged {
     id: number;
 
     @Column()
-    @Field()
+    @Field(() => Date)
     date: Date;
 
     @Column()
-    @Field()
+    @Field(() => String)
     previous_status: string;
 
     @Column()
-    @Field()
+    @Field(() => String)
     actual_status: string;
 
     @OneToOne(() => Task, task => task.statusChanged)
+    @IsOptional()
     @Field(() => Task, { nullable: true })
     task: Task;
 }
