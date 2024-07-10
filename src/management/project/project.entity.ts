@@ -6,6 +6,7 @@ import { Resource } from '../resource/resource.entity';
 import { Comment } from '../comment/comment.entity';
 import { Meeting } from '../meeting/meeting.entity';
 import { Archive } from 'src/documents_management/entities/archive.entity';
+import { IsOptional } from 'class-validator';
 
 @Entity()
 @ObjectType()
@@ -31,26 +32,32 @@ export class Project {
     end_date: Date;
 
     @OneToMany(() => Team, team => team.project)
-    @Field(() => [Team])
+    @IsOptional()
+    @Field(() => [Team], { nullable: true })
     teams: Team[];
 
     @OneToMany(() => Task, task => task.project)
-    @Field(() => [Task])
+    @IsOptional()
+    @Field(() => [Task], { nullable: true })
     tasks: Task[];
 
     @OneToMany(() => Resource, resource => resource.project)
-    @Field(() => [Resource])
+    @IsOptional()
+    @Field(() => [Resource], { nullable: true })
     resources: Resource[];
 
     @OneToMany(() => Comment, comment => comment.project)
-    @Field(() => [Comment])
+    @IsOptional()
+    @Field(() => [Comment], { nullable: true })
     comments: Comment[];
 
     @OneToMany(() => Meeting, meeting => meeting.project)
-    @Field(() => [Meeting])
+    @IsOptional()
+    @Field(() => [Meeting], { nullable: true })
     meetings: Meeting[];
 
     @OneToMany(() => Archive, archive => archive.project)
-    @Field(() => [Archive])
+    @IsOptional()
+    @Field(() => [Archive], { nullable: true })
     archives: Archive[];
 }

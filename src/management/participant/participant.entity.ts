@@ -4,6 +4,7 @@ import { Comment } from "../comment/comment.entity";
 import { Meeting } from "../meeting/meeting.entity";
 import { TeamParticipant } from "../team-participant/team-participant.entity";
 import { ParticipantConversation } from "src/communications/participant_conversation.entity";
+import { IsOptional } from 'class-validator';
 
 @Entity()
 @ObjectType()
@@ -33,15 +34,18 @@ export class Participant {
     rut: string;
 
     @OneToOne(() => TeamParticipant, teamParticipant => teamParticipant.id, { eager: true })
-    @Field(() => TeamParticipant)
+    @IsOptional()
+    @Field(() => TeamParticipant,{ nullable: true })
     teamParticipant: TeamParticipant;
 
     @OneToOne(() => ParticipantConversation, participantConversation => participantConversation.id, { eager: true })
-    @Field(() => ParticipantConversation)
+    @IsOptional()
+    @Field(() => ParticipantConversation, { nullable: true })
     participantConversation: ParticipantConversation;
 
     @OneToMany(() => Comment, comment => comment.participant)
-    @Field(() => [Comment])
+    @IsOptional()
+    @Field(() => [Comment], { nullable: true })
     comments: Comment[];
 
     /*

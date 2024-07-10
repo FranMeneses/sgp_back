@@ -1,5 +1,5 @@
 import { Field, InputType } from '@nestjs/graphql';
-import { IsString, IsNotEmpty, IsNumber } from 'class-validator';
+import { IsString, IsNotEmpty, IsNumber, IsOptional } from 'class-validator';
 
 @InputType()
 export class CreateTeamDto {
@@ -18,8 +18,8 @@ export class CreateTeamDto {
     @Field(() => String)
     description: string;
 
-    @IsNotEmpty()
     @IsNumber()
-    @Field(() => Number)
+    @IsOptional()
+    @Field(() => Number, { nullable: true })
     projectId: number;
 }

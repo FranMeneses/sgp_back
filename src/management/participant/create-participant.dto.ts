@@ -1,5 +1,5 @@
 import { Field, InputType } from '@nestjs/graphql';
-import { IsEmail, IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
 
 @InputType()
 export class CreateParticipantDto {
@@ -28,13 +28,13 @@ export class CreateParticipantDto {
   @Field(() => String)
   rut: string;
 
-  @IsNotEmpty()
   @IsNumber()
-  @Field(() => Number)
+  @IsOptional()
+  @Field(() => Number, { nullable: true })
   teamParticipantId: number;
 
-  @IsNotEmpty()
   @IsNumber()
-  @Field(() => Number)
+  @IsOptional()
+  @Field(() => Number, { nullable: true })
   participantConversationId: number;
 }

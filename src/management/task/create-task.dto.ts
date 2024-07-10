@@ -1,5 +1,5 @@
 import { Field, InputType } from '@nestjs/graphql';
-import { IsNotEmpty, IsString, IsDate, IsInt } from 'class-validator';
+import { IsNotEmpty, IsString, IsDate, IsInt, IsOptional } from 'class-validator';
 
 @InputType()
 export class CreateTaskDto {
@@ -28,8 +28,8 @@ export class CreateTaskDto {
     @Field(() => Date)
     end_date: Date;
 
-    @IsNotEmpty()
     @IsInt()
-    @Field(() => Number)
+    @IsOptional()
+    @Field(() => Number, { nullable: true })
     projectId: number;
 }

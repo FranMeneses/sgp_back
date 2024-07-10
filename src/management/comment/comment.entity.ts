@@ -3,6 +3,7 @@ import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
 import { Participant } from '../participant/participant.entity';
 import { Project } from '../project/project.entity';
 import { Task } from '../task/task.entity';
+import { IsOptional } from 'class-validator';
 
 @Entity()
 @ObjectType()
@@ -20,14 +21,17 @@ export class Comment {
     date: Date;
 
     @ManyToOne(() => Participant, participant => participant.comments)
-    @Field(() => Participant)
+    @IsOptional()
+    @Field(() => Participant,{ nullable: true })
     participant: Participant;
 
     @ManyToOne(() => Project, project => project.comments)
-    @Field(() => Project)
+    @IsOptional()
+    @Field(() => Project, { nullable: true })
     project: Project;
 
     @ManyToOne(() => Task, task => task.comments)
-    @Field(() => Task)
+    @IsOptional()
+    @Field(() => Task, { nullable: true })
     task: Task;
 }

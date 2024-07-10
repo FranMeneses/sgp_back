@@ -1,5 +1,5 @@
 import { Field, InputType } from '@nestjs/graphql';
-import { IsNotEmpty, IsString, IsInt } from 'class-validator';
+import { IsNotEmpty, IsString, IsInt, IsOptional } from 'class-validator';
 
 @InputType()
 export class CreateResourceDto {
@@ -14,7 +14,7 @@ export class CreateResourceDto {
   content: string;
 
   @IsInt()
-  @IsNotEmpty()
-  @Field(() => Number)
+  @IsOptional()
+  @Field(() => Number, { nullable: true })
   projectId: number;
 }

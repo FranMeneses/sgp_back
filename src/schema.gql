@@ -14,9 +14,9 @@ type Comment {
   content: String!
   date: DateTime!
   id: ID!
-  participant: Participant!
-  project: Project!
-  task: Task!
+  participant: Participant
+  project: Project
+  task: Task
 }
 
 type Conversation {
@@ -27,8 +27,8 @@ type Conversation {
 input CreateCommentDto {
   content: String!
   date: DateTime!
-  project_id: Float!
-  task_id: Float!
+  project_id: Float
+  task_id: Float
 }
 
 input CreateNotificationDto {
@@ -42,10 +42,10 @@ input CreateParticipantDto {
   email: String!
   last_name: String!
   name: String!
-  participantConversationId: Float!
+  participantConversationId: Float
   password: String!
   rut: String!
-  teamParticipantId: Float!
+  teamParticipantId: Float
 }
 
 input CreateProjectDto {
@@ -58,7 +58,7 @@ input CreateProjectDto {
 input CreateResourceDto {
   category: String!
   content: String!
-  projectId: Float!
+  projectId: Float
 }
 
 input CreateStatusChangedDto {
@@ -73,7 +73,7 @@ input CreateTaskDto {
   description: String!
   end_date: DateTime!
   name: String!
-  projectId: Float!
+  projectId: Float
   start_date: DateTime!
   status: String!
 }
@@ -81,7 +81,7 @@ input CreateTaskDto {
 input CreateTeamDto {
   description: String!
   name: String!
-  projectId: Float!
+  projectId: Float
   type: String!
 }
 
@@ -102,7 +102,7 @@ type Meeting {
   description: String!
   id: ID!
   name: String!
-  project: Project!
+  project: Project
 }
 
 type Mutation {
@@ -143,15 +143,15 @@ type Notification {
 }
 
 type Participant {
-  comments: [Comment!]!
+  comments: [Comment!]
   email: String!
   id: ID!
   last_name: String!
   name: String!
-  participantConversation: ParticipantConversation!
+  participantConversation: ParticipantConversation
   password: String!
   rut: String!
-  teamParticipant: TeamParticipant!
+  teamParticipant: TeamParticipant
 }
 
 type ParticipantConversation {
@@ -162,16 +162,16 @@ type ParticipantConversation {
 
 type Project {
   amount_participants: Float!
-  archives: [Archive!]!
-  comments: [Comment!]!
+  archives: [Archive!]
+  comments: [Comment!]
   end_date: DateTime!
   id: ID!
-  meetings: [Meeting!]!
+  meetings: [Meeting!]
   name: String!
-  resources: [Resource!]!
+  resources: [Resource!]
   start_date: DateTime!
-  tasks: [Task!]!
-  teams: [Team!]!
+  tasks: [Task!]
+  teams: [Team!]
 }
 
 type Query {
@@ -200,7 +200,7 @@ type Resource {
   category: String!
   content: String!
   id: ID!
-  project: Project!
+  project: Project
 }
 
 type StatusChanged {
@@ -212,34 +212,34 @@ type StatusChanged {
 }
 
 type Task {
-  comments: [Comment!]!
+  comments: [Comment!]
   description: String!
   end_date: DateTime!
   id: ID!
   name: String!
-  notification: Notification!
-  project: Project!
+  notification: Notification
+  project: Project
   start_date: DateTime!
   status: String!
-  statusChanged: StatusChanged!
-  teamParticipant: TeamParticipant!
+  statusChanged: StatusChanged
+  teamParticipant: TeamParticipant
 }
 
 type Team {
   description: String!
   id: ID!
   name: String!
-  project: Project!
-  teamParticipant: TeamParticipant!
+  project: Project
+  teamParticipant: TeamParticipant
   type: String!
 }
 
 type TeamParticipant {
   id: ID!
-  participant: Participant!
+  participant: Participant
   role: String!
-  tasks: [Task!]!
-  team: Team!
+  tasks: [Task!]
+  team: Team
 }
 
 input UpdateCommentDto {
