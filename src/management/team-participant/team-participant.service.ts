@@ -8,6 +8,7 @@ import { ParticipantService } from '../participant/participant.service';
 import { ParticipantMSG, TeamMSG } from 'src/constants';
 import { TeamService } from '../team/team.service';
 import { Team } from '../team/team.entity';
+import { Participant } from '../participant/participant.entity';
 
 @Injectable()
 export class TeamParticipantService {
@@ -69,6 +70,17 @@ export class TeamParticipantService {
         return teams;
     } catch (error) {
         throw new BadRequestException(error.message);
+    }
+  }
+
+  async findParticipantsByTeam(action: string, id: number): Promise<Participant[]> {
+    try {
+      const team = await this.teamRepository.findOne(TeamMSG.FIND_ONE, id);
+      const teamParticipant = await this.teamParticipantRepository.find({ where: { team } });
+      const participants = teamParticipant.map(tp => tp.participant);
+      return participants;
+    } catch (error) {
+      throw new BadRequestException(error.message);
     }
   }
 }

@@ -182,6 +182,7 @@ type Query {
   FIND_NOTIFICATIONS: [Notification!]!
   FIND_PARTICIPANT(id: Float!): Participant!
   FIND_PARTICIPANTS: [Participant!]!
+  FIND_PARTICIPANTS_BY_PROJECT(id: Float!): [Participant!]!
   FIND_PROJECT(id: Float!): Project!
   FIND_PROJECTS: [Project!]!
   FIND_PROJECTS_BY_PARTICIPANT(id: Float!): [Project!]!
