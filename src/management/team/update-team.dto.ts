@@ -1,19 +1,19 @@
 import { Field, InputType } from '@nestjs/graphql';
-import { IsString, IsNotEmpty } from 'class-validator';
+import { IsString, IsOptional } from 'class-validator';
 
 @InputType()
 export class UpdateTeamDto {
-	@IsNotEmpty()
+	@IsOptional()
 	@IsString()
 	@Field(() => String)
 	name: string;
 
-	@IsNotEmpty()
+	@IsOptional()
 	@IsString()
 	@Field(() => String)
 	type: string;
 
-	@IsNotEmpty()
+	@IsOptional()
 	@IsString()
 	@Field(() => String)
 	description: string;

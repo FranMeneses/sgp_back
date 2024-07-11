@@ -27,11 +27,4 @@ export class Meeting {
     @IsOptional()
     @Field(() => Project, { nullable: true })
     project: Project;
-
-    /*
-    @ManyToMany(() => Participant, participant => participant.meetings)
-    @JoinTable() // This decorator is needed for ManyToMany relations to specify the join table.
-    @Field(() => [Participant])
-    participants: Participant[];
-    */
 }

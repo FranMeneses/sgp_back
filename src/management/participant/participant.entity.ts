@@ -47,11 +47,4 @@ export class Participant {
     @IsOptional()
     @Field(() => [Comment], { nullable: true })
     comments: Comment[];
-
-    /*
-    @ManyToMany(() => Meeting, meeting => meeting.participants)
-    @JoinTable()
-    @Field(() => [Meeting])
-    meetings: Meeting[];
-    */
 }

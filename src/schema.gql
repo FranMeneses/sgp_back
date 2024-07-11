@@ -34,7 +34,6 @@ input CreateCommentDto {
 input CreateNotificationDto {
   content: String!
   date: DateTime!
-  id: Float!
   taskId: Float
 }
 
@@ -65,7 +64,6 @@ input CreateResourceDto {
 input CreateStatusChangedDto {
   actual_status: String!
   date: DateTime!
-  id: Float!
   previous_status: String!
   taskId: Float
 }
@@ -193,7 +191,7 @@ type Query {
   FIND_STATUS_CHANGED(id: Float!): StatusChanged!
   FIND_TASK(id: Float!): Task!
   FIND_TASKS: [Task!]!
-  FIND_TASK_BY_PROJECT(project: Float!): [Task!]!
+  FIND_TASKS_BY_PROJECT(project: Float!): [Task!]!
   FIND_TEAM(id: Float!): Team!
   FIND_TEAMS: [Team!]!
   FIND_TEAMS_BY_PARTICIPANT(id: Float!): [Team!]!

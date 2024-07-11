@@ -51,13 +51,11 @@ export class Task {
 
     @OneToOne(() => Notification, notification => notification.task)
     @IsOptional()
-    @JoinColumn() // This decorator is required to specify the column that joins the two entities.
     @Field(() => Notification, { nullable: true })
     notification: Notification;
 
     @OneToOne(() => StatusChanged, statusChanged => statusChanged.task)
     @IsOptional()
-    @JoinColumn() // This decorator is also required for a OneToOne relationship.
     @Field(() => StatusChanged, { nullable: true })
     statusChanged: StatusChanged;
 }

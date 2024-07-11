@@ -14,7 +14,6 @@ export class TeamParticipant {
     
     @OneToOne(() => Participant, { eager: true })
     @IsOptional()
-    @JoinColumn()
     @Field(() => Participant, { nullable: true })
     participant: Participant;
     
@@ -25,7 +24,6 @@ export class TeamParticipant {
 
     @OneToOne(() => Team, { eager: true })
     @IsOptional()
-    @JoinColumn()
     @Field(() => Team, { nullable: true })
     team: Team;
 

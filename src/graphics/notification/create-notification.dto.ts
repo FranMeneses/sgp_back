@@ -3,11 +3,7 @@ import { IsString, IsNotEmpty, IsOptional, IsNumber, IsDate } from 'class-valida
 
 @InputType()
 export class CreateNotificationDto {
-  @IsNumber()
-  @IsNotEmpty()
-  @Field(() => Number)
-  id: number;
-
+  
   @IsString()
   @IsNotEmpty()
   @Field(() => String)

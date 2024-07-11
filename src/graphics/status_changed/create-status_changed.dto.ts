@@ -5,11 +5,6 @@ import { Task } from 'src/management/task/task.entity';
 @InputType()
 export class CreateStatusChangedDto {
     @IsNotEmpty()
-    @IsNumber()
-    @Field(() => Number)
-    id: number;
-
-    @IsNotEmpty()
     @IsDate()
     @Field(() => Date)
     date: Date;

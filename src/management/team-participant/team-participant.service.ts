@@ -23,19 +23,10 @@ export class TeamParticipantService {
 
   async create(action: string, createTeamParticipantDto: CreateTeamParticipantDto) {
     try {
-      const participant = await this.participantRepository.findOne(ParticipantMSG.FIND_ONE,createTeamParticipantDto.id_participant);
-      if (!participant) {
-        throw new BadRequestException('Participant not found');
-      }
-      const team = await this.teamRepository.findOne(TeamMSG.FIND_ONE,createTeamParticipantDto.id_team);
-      if (!team) {
-        throw new BadRequestException('Team not found');
-      }
-      
+      const participant = await this.participantRepository.findOne(ParticipantMSG.FIND_ONE, createTeamParticipantDto.id_participant);
+      const team = await this.teamRepository.findOne(TeamMSG.FIND_ONE, createTeamParticipantDto.id_team);
       const newTeamParticipant = this.teamParticipantRepository.create({participant: participant, team: team, role: createTeamParticipantDto.role});
-      
       return await this.teamParticipantRepository.save(newTeamParticipant);
-
     } catch (error) {
       throw new BadRequestException(error.message);
     }
