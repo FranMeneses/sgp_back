@@ -12,12 +12,12 @@ export class ParticipantConversation {
     @Field(() => ID)
     id: number;
 
-    @OneToOne(() => Participant, participant => participant.id, { eager: true })
+    @OneToOne(() => Participant, participant => participant.id)
     @IsOptional()
     @Field(() => Participant, { nullable: true })
     id_participant: Participant;
 
-    @OneToOne(() => Conversation, conversation => conversation.id, { eager: true })
+    @OneToOne(() => Conversation, conversation => conversation.id)
     @IsOptional()
     @Field(() => Conversation, { nullable: true })
     id_conversation: Conversation;

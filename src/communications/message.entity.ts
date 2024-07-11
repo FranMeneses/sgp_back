@@ -11,12 +11,12 @@ export class Message {
   @Field(() => ID)
   id: number;
 
-  @OneToOne(() => Conversation, conversation => conversation.id, { eager: true })
+  @OneToOne(() => Conversation, conversation => conversation.id)
   @IsOptional()
   @Field(() => Conversation, { nullable: true })
   id_conversation: Conversation;
 
-  @ManyToMany(() => Participant, participant => participant.id, { eager: true })
+  @ManyToMany(() => Participant, participant => participant.id)
   @IsOptional()
   @Field(() => [Participant], { nullable: true })
   id_participant: Participant[];
