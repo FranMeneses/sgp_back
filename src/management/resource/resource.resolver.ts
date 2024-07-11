@@ -24,6 +24,11 @@ export class ResourceResolver {
     return this.resourceService.findOne(ResourceMSG.FIND_ONE, id);
   }
 
+  @Query(() => [Resource], { name: 'FIND_RESOURCES_BY_PROJECT' }) // Corrección aquí
+  findByProject(@Args('projectId') projectId: number) {
+    return this.resourceService.findByProject(ResourceMSG.FIND_BY_PROJECT, projectId);
+  }
+
   @Mutation(() => Resource, { name: 'UPDATE_RESOURCE' }) // Corrección aquí
   updateResource(@Args('id') id:number, @Args('updateResourceDto') updateResourceDto: UpdateResourceDto) {
     return this.resourceService.update(ResourceMSG.UPDATE, id, updateResourceDto);

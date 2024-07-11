@@ -6,7 +6,7 @@ type Archive {
   date: DateTime!
   id: ID!
   name: String!
-  project: Project!
+  project: Project
   type: String!
 }
 
@@ -21,7 +21,7 @@ type Comment {
 
 type Conversation {
   id: ID!
-  id_project: Project!
+  id_project: Project
 }
 
 input CreateCommentDto {
@@ -33,9 +33,9 @@ input CreateCommentDto {
 
 input CreateNotificationDto {
   content: String!
-  date: DateTime
+  date: DateTime!
   id: Float!
-  taskId: Float!
+  taskId: Float
 }
 
 input CreateParticipantDto {
@@ -66,7 +66,7 @@ input CreateStatusChangedDto {
   date: DateTime!
   id: Float!
   previous_status: String!
-  taskId: Float!
+  taskId: Float
 }
 
 input CreateTaskDto {
@@ -156,8 +156,8 @@ type Participant {
 
 type ParticipantConversation {
   id: ID!
-  id_conversation: Conversation!
-  id_participant: Participant!
+  id_conversation: Conversation
+  id_participant: Participant
 }
 
 type Project {
@@ -185,6 +185,7 @@ type Query {
   FIND_PROJECTS: [Project!]!
   FIND_RESOURCE(id: Float!): Resource!
   FIND_RESOURCES: [Resource!]!
+  FIND_RESOURCES_BY_PROJECT(projectId: Float!): [Resource!]!
   FIND_STATUSES_CHANGED: [StatusChanged!]!
   FIND_STATUS_CHANGED(id: Float!): StatusChanged!
   FIND_TASK(id: Float!): Task!
