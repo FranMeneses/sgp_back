@@ -12,6 +12,10 @@ export class Resource {
 
     @Column()
     @Field()
+    title: string;
+
+    @Column()
+    @Field()
     category: string;
 
     @Column()

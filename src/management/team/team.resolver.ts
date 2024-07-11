@@ -33,4 +33,9 @@ export class TeamResolver {
   removeTeam(@Args('id') id: number) {
     return this.teamService.remove(TeamMSG.DELETE, id);
   }
+
+  @Query(() => [Team], { name: 'FIND_TEAMS_BY_PROJECT' })
+  findTeamsByProject(@Args('id') id: number) {
+    return this.teamService.findTeamsByProject(TeamMSG.FIND_TEAMS_BY_PROJECT, id);
+  }
 }

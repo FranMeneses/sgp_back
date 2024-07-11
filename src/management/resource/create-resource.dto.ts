@@ -11,6 +11,11 @@ export class CreateResourceDto {
   @IsNotEmpty()
   @IsString()
   @Field(() => String)
+  title: string;
+
+  @IsNotEmpty()
+  @IsString()
+  @Field(() => String)
   content: string;
 
   @IsInt()

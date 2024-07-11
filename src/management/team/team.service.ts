@@ -55,4 +55,14 @@ export class TeamService {
             throw new BadRequestException(error.message);
         }
     }
+
+    async findTeamsByProject(action: string, id: number): Promise<Team[]> {
+        try {
+            const project = await this.projectRepository.findOne(ProjectMSG.FIND_ONE, id);
+            const teams = await this.teamRepository.find({ where: { project } });
+            return teams;
+        } catch (error) {
+            throw new BadRequestException(error.message);
+        }
+    }
 }

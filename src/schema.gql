@@ -59,6 +59,7 @@ input CreateResourceDto {
   category: String!
   content: String!
   projectId: Float
+  title: String!
 }
 
 input CreateStatusChangedDto {
@@ -195,6 +196,7 @@ type Query {
   FIND_TEAM(id: Float!): Team!
   FIND_TEAMS: [Team!]!
   FIND_TEAMS_BY_PARTICIPANT(id: Float!): [Team!]!
+  FIND_TEAMS_BY_PROJECT(id: Float!): [Team!]!
   FIND_TEAM_PARTICIPANT(id: Float!): TeamParticipant!
   FIND_TEAM_PARTICIPANTS: [TeamParticipant!]!
 }
@@ -204,6 +206,7 @@ type Resource {
   content: String!
   id: ID!
   project: Project
+  title: String!
 }
 
 type StatusChanged {
@@ -277,6 +280,7 @@ input UpdateResourceDto {
   category: String
   content: String
   projectId: Float
+  title: String
 }
 
 input UpdateStatusChangedDto {
