@@ -24,9 +24,9 @@ export class TaskResolver {
     return this.taskService.findOne(TaskMSG.FIND_ONE, id);
   }
 
-  @Query(() => [Task], { name: 'FIND_TASK_BY_PROJECT' })
+  @Query(() => [Task], { name: 'FIND_TASKS_BY_PROJECT' })
   findTasksByProjectId(@Args('project') project: number){
-    return this.taskService.findTasksByProjectId(TaskMSG.FIND_BY_PROJECT, project);
+    return this.taskService.findTasksByProjectId(TaskMSG.FIND_TASKS_BY_PROJECT, project);
   }
 
   @Mutation(() => Task, { name: 'UPDATE_TASK' })

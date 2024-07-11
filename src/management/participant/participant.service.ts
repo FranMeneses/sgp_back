@@ -65,6 +65,4 @@ export class ParticipantService {
       throw new BadRequestException(error.message);
     }
   }
-
-  
 }
