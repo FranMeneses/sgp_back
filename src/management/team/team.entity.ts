@@ -28,7 +28,7 @@ export class Team {
     @Field(() => Project, { nullable: true })
     project: Project;
 
-    @OneToOne(() => TeamParticipant, teamParticipant => teamParticipant.id, { eager: true })
+    @OneToOne(() => TeamParticipant, teamParticipant => teamParticipant.id)
     @IsOptional()
     @Field(() => TeamParticipant, { nullable: true })
     teamParticipant: TeamParticipant;

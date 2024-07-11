@@ -12,7 +12,7 @@ export class Conversation {
     @Field(() => ID)
     id: number;
 
-    @OneToOne(() => Project, project => project.id, { eager: true })
+    @OneToOne(() => Project, project => project.id)
     @IsOptional()
     @Field(() => Project, { nullable: true })
     id_project: Project; 

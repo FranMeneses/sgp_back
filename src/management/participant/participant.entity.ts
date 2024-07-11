@@ -33,12 +33,12 @@ export class Participant {
     @Field()
     rut: string;
 
-    @OneToOne(() => TeamParticipant, teamParticipant => teamParticipant.id, { eager: true })
+    @OneToOne(() => TeamParticipant, teamParticipant => teamParticipant.id)
     @IsOptional()
     @Field(() => TeamParticipant,{ nullable: true })
     teamParticipant: TeamParticipant;
 
-    @OneToOne(() => ParticipantConversation, participantConversation => participantConversation.id, { eager: true })
+    @OneToOne(() => ParticipantConversation, participantConversation => participantConversation.id)
     @IsOptional()
     @Field(() => ParticipantConversation, { nullable: true })
     participantConversation: ParticipantConversation;

@@ -12,7 +12,7 @@ export class TeamParticipant {
     @Field(() => ID)
     id: number;
     
-    @OneToOne(() => Participant, { eager: true })
+    @OneToOne(() => Participant)
     @IsOptional()
     @Field(() => Participant, { nullable: true })
     participant: Participant;
@@ -22,7 +22,7 @@ export class TeamParticipant {
     @Field(() => [Task], { nullable: true })
     tasks: Task[];
 
-    @OneToOne(() => Team, { eager: true })
+    @OneToOne(() => Team)
     @IsOptional()
     @Field(() => Team, { nullable: true })
     team: Team;
