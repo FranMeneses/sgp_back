@@ -22,4 +22,9 @@ export class CreateCommentDto {
     @IsOptional()
     @Field(() => Number, { nullable: true })
     task_id: number;
+
+    @IsNumber()
+    @IsOptional()
+    @Field(() => Number, { nullable: true })
+    user_id: number;
 }

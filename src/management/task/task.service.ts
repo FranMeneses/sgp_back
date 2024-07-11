@@ -4,17 +4,22 @@ import { Repository, UpdateResult } from "typeorm";
 import { CreateTaskDto } from "./create-task.dto";
 import { Task } from "./task.entity";
 import { UpdateTaskDto } from "./update-task.dto";
+import { ProjectService } from "../project/project.service";
+import { ProjectMSG } from "src/constants";
 
 @Injectable()
 export class TaskService {
   constructor(
     @InjectRepository(Task)
     private taskRepository: Repository<Task>,
+    private projectRepository: ProjectService,
   ) {}
 
   async create(action: string, createTaskDto: CreateTaskDto): Promise<Task> {
     try {
       const newTask = this.taskRepository.create(createTaskDto);
+      const project = await this.projectRepository.findOne(ProjectMSG.CREATE, createTaskDto.projectId);
+      newTask.project = project;
       return await this.taskRepository.save(newTask);
     } catch (error) {
       throw new BadRequestException(error.message);

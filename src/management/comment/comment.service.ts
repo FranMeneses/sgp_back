@@ -4,17 +4,32 @@ import { Repository, UpdateResult } from 'typeorm';
 import { Comment } from './comment.entity';
 import { CreateCommentDto } from './create-comment.dto';
 import { UpdateCommentDto } from './update-comment.dto';
+import { ProjectService } from '../project/project.service';
+import { TaskService } from '../task/task.service';
+import { ParticipantMSG, ProjectMSG, TaskMSG } from 'src/constants';
+import { ParticipantService } from '../participant/participant.service';
 
 @Injectable()
 export class CommentService {
   constructor(
     @InjectRepository(Comment)
     private commentRepository: Repository<Comment>,
+    private projectRepository: ProjectService,
+    private taskRepository: TaskService,
+    private participantRepository: ParticipantService,
   ) {}
 
   async create(action: string, createCommentDto: CreateCommentDto): Promise<Comment> {
     try {
       const newComment = this.commentRepository.create(createCommentDto);
+      const project = await this.projectRepository.findOne(ProjectMSG.FIND_ONE, createCommentDto.project_id);
+      const task = await this.taskRepository.findOne(TaskMSG.FIND_ONE, createCommentDto.task_id);
+      const participant = await this.participantRepository.findOne(ParticipantMSG.FIND_ONE, createCommentDto.user_id);
+
+      newComment.project = project;
+      newComment.task = task;
+      newComment.participant = participant;
+      
       return await this.commentRepository.save(newComment);
     } catch (error) {
       throw new BadRequestException(error.message);

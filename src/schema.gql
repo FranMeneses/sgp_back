@@ -29,6 +29,7 @@ input CreateCommentDto {
   date: DateTime!
   project_id: Float
   task_id: Float
+  user_id: Float
 }
 
 input CreateNotificationDto {

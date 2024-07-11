@@ -5,17 +5,22 @@ import { Resource } from './resource.entity';
 import { CreateResourceDto } from './create-resource.dto';
 import { UpdateResourceDto } from './update-resource.dto';
 import { Equal } from 'typeorm';
+import { ProjectService } from '../project/project.service';
+import { ResourceMSG } from 'src/constants';
 
 @Injectable()
 export class ResourceService {
   constructor(
     @InjectRepository(Resource)
     private resourceRepository: Repository<Resource>,
+    private readonly projectRepository: ProjectService,
   ) {}
 
   async create(action: string, createResourceDto: CreateResourceDto): Promise<Resource> {
     try {
       const newResource = this.resourceRepository.create(createResourceDto);
+      const project = await this.projectRepository.findOne(ResourceMSG.FIND_ONE, createResourceDto.projectId);
+      newResource.project = project;
       return await this.resourceRepository.save(newResource);
     } catch (error) {
       throw new BadRequestException(error.message);
