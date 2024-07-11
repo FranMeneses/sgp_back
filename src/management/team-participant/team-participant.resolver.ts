@@ -4,6 +4,7 @@ import { TeamParticipant } from './team-participant.entity';
 import { CreateTeamParticipantDto } from './create-team-participant.dto';
 import { UpdateTeamParticipantDto } from './update-team-participant.dto';
 import { TeamParticipantMSG } from 'src/constants';
+import { Team } from '../team/team.entity';
 
 @Resolver(() => TeamParticipant)
 export class TeamParticipantResolver {
@@ -32,5 +33,10 @@ export class TeamParticipantResolver {
   @Mutation(() => TeamParticipant, { name: 'DELETE_TEAM_PARTICIPANT' })
   removeTeamParticipant(@Args('id') id: number) {
     return this.teamParticipantService.remove(TeamParticipantMSG.DELETE, id);
+  }
+
+  @Query(() => [Team], { name: 'FIND_TEAMS_BY_PARTICIPANT' })
+  findTeamsByParticipant(@Args('id') id: number) {
+    return this.teamParticipantService.findTeamsByParticipant(TeamParticipantMSG.FIND_TEAMS_BY_PARTICIPANT, id);
   }
 }

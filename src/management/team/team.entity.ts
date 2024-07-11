@@ -30,7 +30,6 @@ export class Team {
 
     @OneToOne(() => TeamParticipant, teamParticipant => teamParticipant.id, { eager: true })
     @IsOptional()
-    @JoinColumn() // This decorator specifies the column that joins the two entities.
     @Field(() => TeamParticipant, { nullable: true })
     teamParticipant: TeamParticipant;
 }

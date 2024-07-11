@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, forwardRef, Inject, Injectable } from '@nestjs/common';
 import { CreateTeamParticipantDto } from './create-team-participant.dto';
 import { UpdateTeamParticipantDto } from './update-team-participant.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -7,13 +7,16 @@ import { Repository } from 'typeorm';
 import { ParticipantService } from '../participant/participant.service';
 import { ParticipantMSG, TeamMSG } from 'src/constants';
 import { TeamService } from '../team/team.service';
+import { Team } from '../team/team.entity';
 
 @Injectable()
 export class TeamParticipantService {
   constructor(
     @InjectRepository(TeamParticipant)
     private teamParticipantRepository: Repository<TeamParticipant>,
+    @Inject(forwardRef(() => ParticipantService))
     private readonly participantRepository: ParticipantService,
+    @Inject(forwardRef(() => TeamService))
     private readonly teamRepository: TeamService,
   ) {}
 
@@ -56,5 +59,16 @@ export class TeamParticipantService {
 
   async remove(action: string, id: number) {
     return await this.teamParticipantRepository.delete(id);
+  }
+
+  async findTeamsByParticipant(action: string, id: number): Promise<Team[]> {
+    try {
+        const participant = await this.participantRepository.findOne(ParticipantMSG.FIND_ONE, id);
+        const teamParticipant = await this.teamParticipantRepository.find({ where: { participant } });
+        const teams = teamParticipant.map(tp => tp.team);
+        return teams;
+    } catch (error) {
+        throw new BadRequestException(error.message);
+    }
   }
 }

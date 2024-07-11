@@ -9,27 +9,27 @@ import { ParticipantMSG } from 'src/constants';
 export class ParticipantResolver {
     constructor(private readonly participantService: ParticipantService) {}
 
-    @Mutation(() => Participant, { name: 'CREATE_PARTICIPANT' }) // Especifica el tipo de retorno y el nombre de la operación
+    @Mutation(() => Participant, { name: 'CREATE_PARTICIPANT' })
     createParticipant(@Args('createParticipantDto') createParticipantDto: CreateParticipantDto) {
         return this.participantService.create(ParticipantMSG.CREATE, createParticipantDto);
     }
 
-    @Query(() => [Participant], { name: 'FIND_PARTICIPANTS' }) // Especifica el tipo de retorno para un array de Participant y el nombre de la operación
+    @Query(() => [Participant], { name: 'FIND_PARTICIPANTS' })
     findAll() {
         return this.participantService.findAll(ParticipantMSG.FIND_ALL);
     }
 
-    @Query(() => Participant, { name: 'FIND_PARTICIPANT' }) // Especifica el tipo de retorno y el nombre de la operación
+    @Query(() => Participant, { name: 'FIND_PARTICIPANT' })
     findOne(@Args('id') id: number) {
         return this.participantService.findOne(ParticipantMSG.FIND_ONE, id);
     }
 
-    @Mutation(() => Participant, { name: 'UPDATE_PARTICIPANT' }) // Especifica el tipo de retorno y el nombre de la operación
+    @Mutation(() => Participant, { name: 'UPDATE_PARTICIPANT' })
     updateParticipant(@Args('id') id:number, @Args('updateParticipantDto') updateParticipantDto: UpdateParticipantDto) {
         return this.participantService.update(ParticipantMSG.UPDATE, id, updateParticipantDto);
     }
 
-    @Mutation(() => Participant, { name: 'DELETE_PARTICIPANT' }) // Especifica el tipo de retorno y el nombre de la operación, asumiendo que devuelve el participante eliminado
+    @Mutation(() => Participant, { name: 'DELETE_PARTICIPANT' })
     removeParticipant(@Args('id') id: number) {
         return this.participantService.remove(ParticipantMSG.DELETE, id);
     }

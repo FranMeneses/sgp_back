@@ -183,6 +183,7 @@ type Query {
   FIND_PARTICIPANTS: [Participant!]!
   FIND_PROJECT(id: Float!): Project!
   FIND_PROJECTS: [Project!]!
+  FIND_PROJECT_BY_PARTICIPANT(id: Float!): [Project!]!
   FIND_RESOURCE(id: Float!): Resource!
   FIND_RESOURCES: [Resource!]!
   FIND_RESOURCES_BY_PROJECT(projectId: Float!): [Resource!]!
@@ -193,6 +194,7 @@ type Query {
   FIND_TASK_BY_PROJECT(project: Float!): [Task!]!
   FIND_TEAM(id: Float!): Team!
   FIND_TEAMS: [Team!]!
+  FIND_TEAMS_BY_PARTICIPANT(id: Float!): [Team!]!
   FIND_TEAM_PARTICIPANT(id: Float!): TeamParticipant!
   FIND_TEAM_PARTICIPANTS: [TeamParticipant!]!
 }

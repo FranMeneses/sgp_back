@@ -9,28 +9,33 @@ import { ProjectMSG } from 'src/constants';
 export class ProjectResolver {
   constructor(private readonly projectService: ProjectService) {}
 
-  @Mutation(() => Project, { name: 'CREATE_PROJECT' }) // Especificar el nombre de la operación con el argumento `name`
+  @Mutation(() => Project, { name: 'CREATE_PROJECT' })
   createProject(@Args('createProjectDto') createProjectDto: CreateProjectDto) {
     return this.projectService.create(ProjectMSG.CREATE, createProjectDto);
   }
 
-  @Query(() => [Project], { name: 'FIND_PROJECTS' }) // Especificar el nombre de la operación y el tipo de retorno
+  @Query(() => [Project], { name: 'FIND_PROJECTS' })
   findAll() {
     return this.projectService.findAll(ProjectMSG.FIND_ALL);
   }
 
-  @Query(() => Project, { name: 'FIND_PROJECT' }) // Especificar el nombre de la operación y el tipo de retorno
+  @Query(() => Project, { name: 'FIND_PROJECT' })
   findOne(@Args('id') id: number) {
     return this.projectService.findOne(ProjectMSG.FIND_ONE, id);
   }
 
-  @Mutation(() => Project, { name: 'UPDATE_PROJECT' }) // Especificar el nombre de la operación con el argumento `name`
+  @Mutation(() => Project, { name: 'UPDATE_PROJECT' })
   updateProject(@Args('id') id: number, @Args('updateProjectDto') updateProjectDto: UpdateProjectDto) {
     return this.projectService.update(ProjectMSG.UPDATE, id, updateProjectDto);
   }
 
-  @Mutation(() => Project, { name: 'DELETE_PROJECT' }) // Especificar el nombre de la operación con el argumento `name`
+  @Mutation(() => Project, { name: 'DELETE_PROJECT' })
   removeProject(@Args('id') id: number) {
     return this.projectService.remove(ProjectMSG.DELETE, id);
+  }
+
+  @Query(() => [Project], { name: 'FIND_PROJECT_BY_PARTICIPANT' })
+  findProjectByParticipant(@Args('id') id: number) {
+    return this.projectService.findProjectByParticipant(ProjectMSG.FIND_PROJECT_BY_PARTICIPANT, id);
   }
 }
