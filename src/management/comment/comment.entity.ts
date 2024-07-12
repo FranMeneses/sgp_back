@@ -1,5 +1,5 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
 import { Participant } from '../participant/participant.entity';
 import { Project } from '../project/project.entity';
 import { Task } from '../task/task.entity';
@@ -13,25 +13,40 @@ export class Comment {
     id: number;
 
     @Column()
-    @Field()
+    @Field(() => String)
     content: string;
 
     @Column()
-    @Field()
+    @Field(() => Date)
     date: Date;
 
-    @ManyToOne(() => Participant, participant => participant.comments)
+    @Column()
+    @Field(() => Number)
+    participantId: number;
+
+    @ManyToOne(() => Participant)
     @IsOptional()
+    @JoinColumn({ name: 'participantId' })
     @Field(() => Participant,{ nullable: true })
     participant: Participant;
 
-    @ManyToOne(() => Project, project => project.comments)
+    @Column()
+    @Field(() => Number)
+    projectId: number;
+
+    @ManyToOne(() => Project)
     @IsOptional()
+    @JoinColumn({ name: 'projectId' })
     @Field(() => Project, { nullable: true })
     project: Project;
 
-    @ManyToOne(() => Task, task => task.comments)
+    @Column()
+    @Field(() => Number)
+    taskId: number;
+
+    @ManyToOne(() => Task, task => task)
     @IsOptional()
+    @JoinColumn({ name: 'taskId' })
     @Field(() => Task, { nullable: true })
     task: Task;
 }

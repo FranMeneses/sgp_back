@@ -1,5 +1,5 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
 import { Project } from '../project/project.entity';
 import { IsOptional } from 'class-validator';
 
@@ -11,19 +11,24 @@ export class Resource {
     id: number;
 
     @Column()
-    @Field()
+    @Field(() => String)
     title: string;
 
     @Column()
-    @Field()
+    @Field(() => String)
     category: string;
 
     @Column()
-    @Field()
+    @Field(() => String)
     content: string;
 
-    @ManyToOne(() => Project, project => project.resources)
+    @Column()
+    @Field(() => Number)
+    projectId: number;
+
+    @ManyToOne(() => Project)
     @IsOptional()
+    @JoinColumn({ name: 'projectId' })
     @Field(() => Project, { nullable: true })
     project: Project;
 }

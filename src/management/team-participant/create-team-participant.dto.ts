@@ -6,17 +6,17 @@ export class CreateTeamParticipantDto {
     @IsNumber()
     @IsOptional()
     @Field(() => Number, { nullable: true })
-    id_participant: number;
+    participantId: number;
 
     @IsNumber()
     @IsOptional()
     @Field(() => Number, { nullable: true })
-    id_team: number;
+    teamId: number;
 
-    @IsNumber({}, { each: true })
+    @IsNumber()
     @IsOptional()
     @Field(() => [Number], { nullable: true })
-    id_task?: number[];
+    taskId?: number[];
 
     @IsString()
     @IsNotEmpty()

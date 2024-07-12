@@ -5,7 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { TeamParticipant } from './team-participant.entity';
 import { Repository } from 'typeorm';
 import { ParticipantService } from '../participant/participant.service';
-import { ParticipantMSG, TeamMSG } from 'src/constants';
+import { ParticipantMSG, TeamMSG, TeamParticipantMSG } from 'src/constants';
 import { TeamService } from '../team/team.service';
 import { Team } from '../team/team.entity';
 import { Participant } from '../participant/participant.entity';
@@ -23,14 +23,31 @@ export class TeamParticipantService {
 
   async create(action: string, createTeamParticipantDto: CreateTeamParticipantDto) {
     try {
-      const participant = await this.participantRepository.findOne(ParticipantMSG.FIND_ONE, createTeamParticipantDto.id_participant);
-      const team = await this.teamRepository.findOne(TeamMSG.FIND_ONE, createTeamParticipantDto.id_team);
-      const newTeamParticipant = this.teamParticipantRepository.create({participant: participant, team: team, role: createTeamParticipantDto.role});
+      // Busca el participante y el equipo por sus IDs
+      const participant = await this.participantRepository.findOne(ParticipantMSG.FIND_ONE, createTeamParticipantDto.participantId);
+      const team = await this.teamRepository.findOne(TeamMSG.FIND_ONE, createTeamParticipantDto.teamId);
+  
+      // Verifica si se encontraron el participante y el equipo
+      if (!participant || !team) {
+        throw new BadRequestException('No se encontró el participante o el equipo');
+      }
+  
+      // Crea una nueva instancia de TeamParticipant con los datos recibidos
+      const newTeamParticipant = this.teamParticipantRepository.create({
+        participant: participant,
+        team: team,
+        role: createTeamParticipantDto.role,
+        tasks: []  // Asegúrate de inicializar correctamente las relaciones si son necesarias
+      });
+  
+      // Guarda el nuevo TeamParticipant en la base de datos
       return await this.teamParticipantRepository.save(newTeamParticipant);
     } catch (error) {
       throw new BadRequestException(error.message);
     }
   }
+  
+  
 
   async findAll(action: string) {
     return await this.teamParticipantRepository.find();
@@ -42,8 +59,8 @@ export class TeamParticipantService {
 
   async update(action: string, id: number, updateTeamParticipantDto: UpdateTeamParticipantDto) {
     try{
-      const updatedTeamParticipant = this.teamParticipantRepository.update(id, {role: updateTeamParticipantDto.role});
-      return await updatedTeamParticipant;
+      await this.teamParticipantRepository.update(id, { role: updateTeamParticipantDto.role });
+      return await this.findOne(TeamParticipantMSG.FIND_ONE, id);
     }catch(error){
       throw new BadRequestException(error.message);
     }

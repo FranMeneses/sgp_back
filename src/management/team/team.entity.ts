@@ -1,7 +1,6 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToOne, JoinColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
 import { Project } from '../project/project.entity';
-import { TeamParticipant } from '../team-participant/team-participant.entity';
 import { IsOptional } from 'class-validator';
 
 @Entity()
@@ -12,24 +11,23 @@ export class Team {
     id: number;
 
     @Column()
-    @Field()
+    @Field(() => String)
     name: string;
 
     @Column()
-    @Field()
+    @Field(() => String)
     type: string;
 
     @Column()
-    @Field()
+    @Field(() => String)
     description: string;
 
-    @ManyToOne(() => Project, project => project.teams)
+    @ManyToOne(() => Project)
     @IsOptional()
+    @JoinColumn({ name: 'projectId' })
     @Field(() => Project, { nullable: true })
     project: Project;
 
-    @OneToOne(() => TeamParticipant, teamParticipant => teamParticipant.id)
-    @IsOptional()
-    @Field(() => TeamParticipant, { nullable: true })
-    teamParticipant: TeamParticipant;
+    @Column({ nullable: true })
+    projectId: number;
 }

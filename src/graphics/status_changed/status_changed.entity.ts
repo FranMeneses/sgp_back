@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToOne } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn } from 'typeorm';
 import { Task } from 'src/management/task/task.entity';
 import { ObjectType, Field, ID } from '@nestjs/graphql';
 import { IsOptional } from 'class-validator';
@@ -22,8 +22,13 @@ export class StatusChanged {
     @Field(() => String)
     actual_status: string;
 
-    @OneToOne(() => Task, task => task.statusChanged)
+    @Column()
+    @Field(() => Number)
+    taskId: number;
+
+    @OneToOne(() => Task)
     @IsOptional()
+    @JoinColumn({ name: 'taskId' })
     @Field(() => Task, { nullable: true })
     task: Task;
 }

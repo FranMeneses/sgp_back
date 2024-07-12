@@ -143,21 +143,11 @@ type Notification {
 }
 
 type Participant {
-  comments: [Comment!]
   email: String!
   id: ID!
   last_name: String!
   name: String!
-  participantConversation: ParticipantConversation
-  password: String!
   rut: String!
-  teamParticipant: TeamParticipant
-}
-
-type ParticipantConversation {
-  id: ID!
-  id_conversation: Conversation
-  id_participant: Participant
 }
 
 type Project {
@@ -218,17 +208,13 @@ type StatusChanged {
 }
 
 type Task {
-  comments: [Comment!]
   description: String!
   end_date: DateTime!
   id: ID!
   name: String!
-  notification: Notification
   project: Project
   start_date: DateTime!
   status: String!
-  statusChanged: StatusChanged
-  teamParticipant: TeamParticipant
 }
 
 type Team {
@@ -236,7 +222,6 @@ type Team {
   id: ID!
   name: String!
   project: Project
-  teamParticipant: TeamParticipant
   type: String!
 }
 

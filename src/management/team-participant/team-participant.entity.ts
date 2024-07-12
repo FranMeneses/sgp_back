@@ -1,5 +1,5 @@
 import { Field, ID, ObjectType } from "@nestjs/graphql";
-import { Column, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn, JoinColumn } from "typeorm";
+import { Column, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn, JoinColumn, ManyToOne } from "typeorm";
 import { Team } from "../team/team.entity";
 import { Participant } from "../participant/participant.entity";
 import { Task } from "../task/task.entity";
@@ -12,22 +12,36 @@ export class TeamParticipant {
     @Field(() => ID)
     id: number;
     
+    @Column()
+    @Field(() => Number)
+    participantId: number;
+
     @OneToOne(() => Participant)
     @IsOptional()
+    @JoinColumn({ name: 'participantId' })
     @Field(() => Participant, { nullable: true })
     participant: Participant;
+
+    @Column()
+    @Field(() => [Number], { nullable: true })
+    taskId: number[];
     
-    @OneToMany(() => Task, task => task.teamParticipant)
+    @OneToMany(() => Task, task => task.id)
     @IsOptional()
     @Field(() => [Task], { nullable: true })
     tasks: Task[];
 
+    @Column()
+    @Field(() => Number)
+    teamId: number;
+
     @OneToOne(() => Team)
     @IsOptional()
+    @JoinColumn({ name: 'teamId' })
     @Field(() => Team, { nullable: true })
     team: Team;
 
     @Column()
-    @Field()
+    @Field(() => String)
     role: string;
 }
