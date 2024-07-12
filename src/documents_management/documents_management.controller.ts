@@ -1,35 +1,27 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { Controller, Post, UploadedFile, UseInterceptors, Body } from '@nestjs/common';
 import { DocumentsManagementService } from './documents_management.service';
-import { CreateDocumentDto } from './dto/create_document';
-import { UpdateDocumentDto } from './dto/update_document';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('documents-management')
 export class DocumentsManagementController {
     constructor(private readonly documentsManagementService: DocumentsManagementService) {}
 
-    @Post()
-    create(@Body() createDocumentDto: CreateDocumentDto) {
-        return this.documentsManagementService.create(createDocumentDto);
+    @Post('upload')
+    @UseInterceptors(FileInterceptor('file'))
+    async uploadFile(@UploadedFile() file) {
+      const url = await this.documentsManagementService.uploadFile(file);
+      return { url };
     }
 
-    @Patch(':id')
-    update(@Param('id') id: number, @Body() updateDocumentDto: UpdateDocumentDto) {
-        return this.documentsManagementService.update(id, updateDocumentDto);
+    @Post('download')
+    async downloadFile(@Body('fileUrl') fileUrl: string) {
+      const url = await this.documentsManagementService.downloadFile(fileUrl);
+      return { url };
     }
 
-    @Delete(':id')
-    remove(@Param('id') id: number){
-        return this.documentsManagementService.remove(id);
+    @Post('list')
+    async getDocuments() {
+      const documents = await this.documentsManagementService.getDocuments();
+      return { documents };
     }
-
-    @Get()
-    findAll() {
-        return this.documentsManagementService.findAll();
-    }
-
-    @Get(':id')
-    findOne(@Param('id') id: number){
-        return this.documentsManagementService.findOne(id);
-    }
-
 }
