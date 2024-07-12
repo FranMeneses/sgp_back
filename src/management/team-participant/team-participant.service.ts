@@ -91,4 +91,16 @@ export class TeamParticipantService {
       throw new BadRequestException(error.message);
     }
   }
+
+  async findProjectsByParticipant(action: string, id: number) {
+    try {
+      const participant = await this.participantRepository.findOne(ParticipantMSG.FIND_ONE, id);
+      const teamParticipant = await this.teamParticipantRepository.find({ where: { participant } });
+      const teams = teamParticipant.map(tp => tp.team);
+      const projects = teams.map(t => t.project);
+      return projects;
+    } catch (error) {
+      throw new BadRequestException(error.message);
+    }
+  }
 }

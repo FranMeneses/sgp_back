@@ -4,16 +4,12 @@ import { In, Repository, UpdateResult } from 'typeorm';
 import { Project } from './project.entity';
 import { CreateProjectDto } from './create-project.dto';
 import { UpdateProjectDto } from './update-project.dto';
-import { TeamParticipantService } from '../team-participant/team-participant.service';
-import { TeamParticipantMSG } from 'src/constants';
 
 @Injectable()
 export class ProjectService {
   constructor(
     @InjectRepository(Project)
     private projectRepository: Repository<Project>,
-    @Inject(forwardRef(() => TeamParticipantService))
-    private readonly teamParticipantRepository: TeamParticipantService,
   ) {}
 
   async create(action: string, createProject: CreateProjectDto): Promise<Project> {
@@ -46,16 +42,6 @@ export class ProjectService {
     try {
       const deletedProject = this.projectRepository.delete(id);
       return await deletedProject;
-    } catch (error) {
-      throw new BadRequestException(error.message);
-    }
-  }
-
-  async findProjectByParticipant(action: string, id: number): Promise<Project[]> {
-    try {
-      const teams = await this.teamParticipantRepository.findTeamsByParticipant(TeamParticipantMSG.FIND_TEAMS_BY_PARTICIPANT, id);
-      const projects = await this.projectRepository.find({ where: { id: In(teams.map(team => team.projectId))}});
-      return projects;
     } catch (error) {
       throw new BadRequestException(error.message);
     }

@@ -23,13 +23,14 @@ export class TeamParticipant {
     participant: Participant;
 
     @Column()
-    @Field(() => [Number], { nullable: true })
-    taskId: number[];
+    @Field(() => Number)
+    taskId: number;
     
-    @OneToMany(() => Task, task => task.id)
+    @OneToOne(() => Task)
     @IsOptional()
-    @Field(() => [Task], { nullable: true })
-    tasks: Task[];
+    @JoinColumn({ name: 'taskId' })
+    @Field(() => Task, { nullable: true })
+    tasks: Task;
 
     @Column()
     @Field(() => Number)
