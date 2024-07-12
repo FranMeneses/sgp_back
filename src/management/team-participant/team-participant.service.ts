@@ -111,11 +111,11 @@ export class TeamParticipantService {
     }
   }
 
-  async findRolesByParticipantAndTeam(action: string, participant_id: number, team_id: number) {
+  async findTPByParticipantAndTeam(action: string, participant_id: number, team_id: number) {
     try {
       const participant = await this.participantRepository.findOne(ParticipantMSG.FIND_ONE, participant_id);
       const team = await this.teamRepository.findOne(TeamMSG.FIND_ONE, team_id);
-      const teamParticipant = await this.teamParticipantRepository.find({ where: { participant, team } });
+      const teamParticipant = await this.teamParticipantRepository.findOne({ where: { participant, team } });
       return teamParticipant;
     } catch (error) {
       throw new BadRequestException(error.message);
