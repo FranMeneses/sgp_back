@@ -29,10 +29,10 @@ export class StatusChangedService {
     return await this.statusChangedRepository.findOne({ where: { id } });
   }
   
-  async update(action: string, id: number, updateStatusChangedDto: UpdateStatusChangedDto): Promise<UpdateResult> {
+  async update(action: string, id: number, updateStatusChangedDto: UpdateStatusChangedDto): Promise<StatusChanged> {
     try {
-      const updatedStatusChanged = this.statusChangedRepository.update(id, updateStatusChangedDto);
-      return await updatedStatusChanged;
+      await this.statusChangedRepository.update(id, updateStatusChangedDto);
+      return await this.statusChangedRepository.findOne({ where: { id } });
     } catch (error) {
       throw new BadRequestException(error.message);
     }

@@ -40,10 +40,10 @@ export class TaskService {
     });
   }
 
-  async update(action: string, id: number, updateTaskDto: UpdateTaskDto): Promise<UpdateResult> {
+  async update(action: string, id: number, updateTaskDto: UpdateTaskDto): Promise<Task> {
     try {
-      const updatedTask = this.taskRepository.update(id, updateTaskDto);
-      return await updatedTask;
+      await this.taskRepository.update(id, updateTaskDto);
+      return await this.taskRepository.findOne({ where: { id } });
     } catch (error) {
       throw new BadRequestException(error.message);
     }

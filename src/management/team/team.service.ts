@@ -38,10 +38,10 @@ export class TeamService {
         return await this.teamRepository.findOne({ where: { id } });
     }
 
-    async update(action: string, id: number, UpdateTeamDto: UpdateTeamDto): Promise<UpdateResult> {
+    async update(action: string, id: number, updateTeamDto: UpdateTeamDto): Promise<Team> {
         try {
-            const updatedTeam = this.teamRepository.update(id, UpdateTeamDto);
-            return await updatedTeam;
+            await this.teamRepository.update(id, updateTeamDto);
+            return await this.teamRepository.findOne({ where: { id } });
         } catch (error) {
             throw new BadRequestException(error.message);
         }

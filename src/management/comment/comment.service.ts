@@ -44,10 +44,10 @@ export class CommentService {
     return await this.commentRepository.findOne({ where: { id } });
   }
   
-  async update(action: string, id: number, updateCommentDto: UpdateCommentDto): Promise<UpdateResult> {
+  async update(action: string, id: number, updateCommentDto: UpdateCommentDto): Promise<Comment> {
     try {
-      const updatedComment = this.commentRepository.update(id, updateCommentDto);
-      return await updatedComment;
+      await this.commentRepository.update(id, updateCommentDto);
+      return await this.commentRepository.findOne({ where: { id } });
     } catch (error) {
       throw new BadRequestException(error.message);
     }

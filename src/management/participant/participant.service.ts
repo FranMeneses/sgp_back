@@ -29,10 +29,10 @@ export class ParticipantService {
     return await this.participantRepository.findOne({ where: { id } });
   }
 
-  async update(action:string, id: number, updateParticipantDto: UpdateParticipantDto): Promise<UpdateResult> {
+  async update(action:string, id: number, updateParticipantDto: UpdateParticipantDto): Promise<Participant> {
     try {
-      const updatedParticipant = this.participantRepository.update(id, updateParticipantDto);
-      return await updatedParticipant;
+      await this.participantRepository.update(id, updateParticipantDto);
+      return await this.participantRepository.findOne({ where: { id } });
     } catch (error) {
       throw new BadRequestException(error.message);
     }

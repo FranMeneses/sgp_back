@@ -39,10 +39,10 @@ export class ResourceService {
     return await this.resourceRepository.find({ where: { project: Equal(projectId) } });
   }
   
-  async update(action: string, id: number, updateResourceDto: UpdateResourceDto): Promise<UpdateResult> {
+  async update(action: string, id: number, updateResourceDto: UpdateResourceDto): Promise<Resource> {
     try {
-      const updatedResource = this.resourceRepository.update(id, updateResourceDto);
-      return await updatedResource;
+      await this.resourceRepository.update(id, updateResourceDto);
+      return await this.resourceRepository.findOne({ where: { id } });
     } catch (error) {
       throw new BadRequestException(error.message);
     }

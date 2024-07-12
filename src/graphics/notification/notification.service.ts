@@ -29,10 +29,10 @@ export class NotificationService {
     return await this.notificationRepository.findOne({ where: { id } });
   }
   
-  async update(action: string, id: number, updateNotificationDto: UpdateNotificationDto): Promise<UpdateResult> {
+  async update(action: string, id: number, updateNotificationDto: UpdateNotificationDto): Promise<Notification> {
     try {
-      const updatedNotification = this.notificationRepository.update(id, updateNotificationDto);
-      return await updatedNotification;
+      await this.notificationRepository.update(id, updateNotificationDto);
+      return await this.notificationRepository.findOne({ where: { id } });
     } catch (error) {
       throw new BadRequestException(error.message);
     }

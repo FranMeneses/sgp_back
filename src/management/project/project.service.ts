@@ -1,6 +1,6 @@
 import { Injectable, BadRequestException, forwardRef, Inject } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { In, Repository, UpdateResult } from 'typeorm';
+import { In, Repository } from 'typeorm';
 import { Project } from './project.entity';
 import { CreateProjectDto } from './create-project.dto';
 import { UpdateProjectDto } from './update-project.dto';
@@ -29,14 +29,15 @@ export class ProjectService {
     return await this.projectRepository.findOne({ where: { id } });
   }
 
-  async update(action: string, id: number, updatedProjectDto: UpdateProjectDto): Promise<UpdateResult>{
+  async update(action: string, id: number, updateProjectDto: UpdateProjectDto): Promise<Project> {
     try {
-      const updatedProject = this.projectRepository.update(id, updatedProjectDto);
-      return await updatedProject;
+      await this.projectRepository.update(id, updateProjectDto);
+      return await this.projectRepository.findOne({ where: { id } });
     } catch (error) {
       throw new BadRequestException(error.message);
     }
   }
+  
 
   async remove(action:string, id: number) {
     try {

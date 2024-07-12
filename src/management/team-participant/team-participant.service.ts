@@ -51,8 +51,8 @@ export class TeamParticipantService {
 
   async update(action: string, id: number, updateTeamParticipantDto: UpdateTeamParticipantDto) {
     try{
-      await this.teamParticipantRepository.update(id, { role: updateTeamParticipantDto.role });
-      return await this.findOne(TeamParticipantMSG.FIND_ONE, id);
+      await this.teamParticipantRepository.update(id, updateTeamParticipantDto);
+      return await this.teamParticipantRepository.findOne({ where: { id } });
     }catch(error){
       throw new BadRequestException(error.message);
     }
