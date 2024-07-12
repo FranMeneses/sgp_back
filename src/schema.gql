@@ -38,7 +38,6 @@ input CreateParticipantDto {
   email: String!
   last_name: String!
   name: String!
-  password: String!
   rut: String!
 }
 
@@ -240,7 +239,6 @@ input UpdateParticipantDto {
   email: String
   last_name: String
   name: String
-  password: String
   rut: String
 }
 

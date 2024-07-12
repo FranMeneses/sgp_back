@@ -21,10 +21,5 @@ export class CreateParticipantDto {
   @IsNotEmpty()
   @IsString()
   @Field(() => String)
-  password: string;
-
-  @IsNotEmpty()
-  @IsString()
-  @Field(() => String)
   rut: string;
 }

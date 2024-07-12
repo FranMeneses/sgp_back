@@ -21,10 +21,5 @@ export class UpdateParticipantDto {
   @IsOptional()
   @IsString()
   @Field(() => String, { nullable: true })
-  password?: string;
-
-  @IsOptional()
-  @IsString()
-  @Field(() => String, { nullable: true })
   rut?: string;
 }
