@@ -5,9 +5,10 @@ import { TeamParticipant } from './team-participant.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { TeamModule } from '../team/team.module';
 import { ParticipantModule } from '../participant/participant.module';
+import { TaskModule } from '../task/task.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([TeamParticipant]), TeamModule, ParticipantModule],
+  imports: [TypeOrmModule.forFeature([TeamParticipant]), TeamModule, ParticipantModule, TaskModule],
   controllers: [],
   providers: [TeamParticipantService, TeamParticipantResolver],
   exports: [TeamParticipantService],

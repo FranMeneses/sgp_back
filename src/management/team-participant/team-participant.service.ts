@@ -9,6 +9,7 @@ import { ParticipantMSG, TaskMSG, TeamMSG, TeamParticipantMSG } from 'src/consta
 import { TeamService } from '../team/team.service';
 import { Team } from '../team/team.entity';
 import { Participant } from '../participant/participant.entity';
+import { TaskService } from '../task/task.service';
 
 @Injectable()
 export class TeamParticipantService {
@@ -17,13 +18,14 @@ export class TeamParticipantService {
     private teamParticipantRepository: Repository<TeamParticipant>,
     private readonly participantRepository: ParticipantService,
     private readonly teamRepository: TeamService,
+    private readonly taskRepository: TaskService,
   ) {}
 
   async create(action: string, createTeamParticipantDto: CreateTeamParticipantDto) {
     try {
       const participant = await this.participantRepository.findOne(ParticipantMSG.FIND_ONE, createTeamParticipantDto.participantId);
       const team = await this.teamRepository.findOne(TeamMSG.FIND_ONE, createTeamParticipantDto.teamId);
-      const Task = await this.teamRepository.findOne(TaskMSG.FIND_ONE, createTeamParticipantDto.taskId);
+      const Task = await this.taskRepository.findOne(TaskMSG.FIND_ONE, createTeamParticipantDto.taskId);
       const newTeamParticipant = this.teamParticipantRepository.create({
         participant: participant,
         team: team,
@@ -67,9 +69,10 @@ export class TeamParticipantService {
         const teams = teamParticipant.map(tp => tp.team);
         return teams;
     } catch (error) {
+        console.log('manitont');
         throw new BadRequestException(error.message);
     }
-  }
+}
 
   async findParticipantsByTeam(action: string, id: number): Promise<Participant[]> {
     try {
