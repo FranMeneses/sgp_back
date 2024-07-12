@@ -47,4 +47,7 @@ export class ParticipantService {
     }
   }
 
+  async findByRut(action: string, rut: string) {
+    return await this.participantRepository.findOne({ where: { rut } });
+  }
 }

@@ -154,6 +154,7 @@ type Query {
   FIND_PARTICIPANTS: [Participant!]!
   FIND_PARTICIPANTS_BY_PROJECT(id: Float!): [Participant!]!
   FIND_PARTICIPANTS_BY_TEAM(id: Float!): [Participant!]!
+  FIND_PARTICIPANT_BY_RUT(rut: String!): Participant!
   FIND_PROJECT(id: Float!): Project!
   FIND_PROJECTS: [Project!]!
   FIND_PROJECTS_BY_PARTICIPANT(id: Float!): [Project!]!

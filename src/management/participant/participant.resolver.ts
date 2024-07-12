@@ -33,4 +33,9 @@ export class ParticipantResolver {
     removeParticipant(@Args('id') id: number) {
         return this.participantService.remove(ParticipantMSG.DELETE, id);
     }
+
+    @Query(() => Participant, { name: 'FIND_PARTICIPANT_BY_RUT' })
+    findByRut(@Args('rut') rut: string) {
+        return this.participantService.findByRut(ParticipantMSG.FIND_PARTICIPANT_BY_RUT, rut);
+    }
 }
