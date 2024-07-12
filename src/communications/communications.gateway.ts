@@ -37,23 +37,23 @@ export class ChatGateway implements OnGatewayInit, OnGatewayConnection, OnGatewa
 
     const conversation = await this.communicationsService.findconversationByProjects(message.room);
     if(!conversation){
-      const newConversation = await this.communicationsService.createConversation({id_project:message.room});
+      const newConversation = await this.communicationsService.createConversation({projectId:message.room});
 
       this.ConversationRepository.save(newConversation);
 
-      const newParticipantConversation = await this.communicationsService.createParticipantConversation({id_conversation:newConversation.id, id_participant:participant_conversation.id});
+      const newParticipantConversation = await this.communicationsService.createParticipantConversation({conversationId:newConversation.id, participantId:participant_conversation.id});
 
       this.ParticipantConversationRepository.save(newParticipantConversation);
 
-      const newMessage = await this.communicationsService.createMessage({id_participant:newParticipantConversation.id, id_conversation:newConversation.id,content:message.message,date:new Date()})
+      const newMessage = await this.communicationsService.createMessage({participantId:newParticipantConversation.id, conversationId:newConversation.id,content:message.message,date:new Date()})
 
       this.messageRepository.save(newMessage);
     }
 
     
-    const newParticipantConversation = await this.communicationsService.createParticipantConversation({id_conversation:conversation.id, id_participant:participant_conversation.id});
+    const newParticipantConversation = await this.communicationsService.createParticipantConversation({conversationId:conversation.id, participantId:participant_conversation.id});
 
-    const newMessage = await this.communicationsService.createMessage({id_participant:newParticipantConversation.id, id_conversation:conversation.id,content:message.message,date:new Date()})
+    const newMessage = await this.communicationsService.createMessage({participantId:newParticipantConversation.id, conversationId:conversation.id,content:message.message,date:new Date()})
 
     this.messageRepository.save(newMessage);
   }
