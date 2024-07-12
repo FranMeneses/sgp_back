@@ -49,6 +49,7 @@ export enum CommentMSG {
     FIND_ONE = 'FIND_COMMENT',
     UPDATE = 'UPDATE_COMMENT',
     DELETE = 'DELETE_COMMENT',
+    FIND_COMMENTS_BY_TASK = 'FIND_COMMENTS_BY_TASK',
 }
 
 export enum MeetingMSG {

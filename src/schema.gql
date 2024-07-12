@@ -147,6 +147,7 @@ type Project {
 type Query {
   FIND_COMMENT(id: Float!): Comment!
   FIND_COMMENTS: [Comment!]!
+  FIND_COMMENTS_BY_TASK(id: Float!): [Comment!]!
   FIND_NOTIFICATION(id: Float!): Notification!
   FIND_NOTIFICATIONS: [Notification!]!
   FIND_PARTICIPANT(id: Float!): Participant!

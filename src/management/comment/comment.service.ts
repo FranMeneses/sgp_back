@@ -61,4 +61,12 @@ export class CommentService {
       throw new BadRequestException(error.message);
     }
   }
+
+  async findCommentsByTask(action: string, id: number) {
+    try {
+      return await this.commentRepository.find({ where: { taskId: id } });
+    } catch (error) {
+      throw new BadRequestException(error.message);
+    }
+  }
 }

@@ -33,4 +33,9 @@ export class CommentResolver {
   removeComment(@Args('id') id: number) {
     return this.commentService.remove(CommentMSG.DELETE, id);
   }
+
+  @Query(() => [Comment], { name: 'FIND_COMMENTS_BY_TASK' })
+  findByTask(@Args('id') id: number) {
+    return this.commentService.findCommentsByTask(CommentMSG.FIND_COMMENTS_BY_TASK, id);
+  }
 }
