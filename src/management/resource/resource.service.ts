@@ -50,8 +50,12 @@ export class ResourceService {
 
   async remove(action: string, id: number) {
     try {
-      const deletedResource = this.resourceRepository.delete(id);
-      return await deletedResource;
+      const resource = await this.resourceRepository.findOne({ where: { id } });
+      if (!resource) {
+        throw new BadRequestException('Resource not found');
+      }
+      await this.resourceRepository.delete(id);
+      return resource;
     } catch (error) {
       throw new BadRequestException(error.message);
     }

@@ -39,10 +39,14 @@ export class ProjectService {
   }
   
 
-  async remove(action:string, id: number) {
+  async remove(action: string, id: number) {
     try {
-      const deletedProject = this.projectRepository.delete(id);
-      return await deletedProject;
+      const project = await this.projectRepository.findOne({ where: { id } });
+      if (!project) {
+        throw new BadRequestException('Project not found');
+      }
+      await this.projectRepository.delete(id);
+      return project;
     } catch (error) {
       throw new BadRequestException(error.message);
     }

@@ -49,8 +49,12 @@ export class TeamService {
 
     async remove(action: string, id: number) {
         try {
-            const deletedTeam = this.teamRepository.delete(id);
-            return await deletedTeam;
+            const team = await this.teamRepository.findOne({ where: { id } });
+            if (!team) {
+                throw new BadRequestException('Team not found');
+            }
+            await this.teamRepository.delete(id);
+            return team;
         } catch (error) {
             throw new BadRequestException(error.message);
         }

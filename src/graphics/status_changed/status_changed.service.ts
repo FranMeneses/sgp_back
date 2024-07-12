@@ -40,8 +40,12 @@ export class StatusChangedService {
 
   async remove(action: string, id: number) {
     try {
-      const deletedStatusChanged = this.statusChangedRepository.delete(id);
-      return await deletedStatusChanged;
+      const status_changed = await this.statusChangedRepository.findOne({ where: { id } });
+      if (!status_changed) {
+        throw new BadRequestException('Status changed not found');
+      }
+      await this.statusChangedRepository.delete(id);
+      return status_changed;
     } catch (error) {
       throw new BadRequestException(error.message);
     }

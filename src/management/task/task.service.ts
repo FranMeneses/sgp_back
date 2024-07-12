@@ -51,8 +51,12 @@ export class TaskService {
 
   async remove(action: string, id: number) {
     try {
-      const deletedTask = this.taskRepository.delete(id);
-      return await deletedTask;
+      const task = await this.taskRepository.findOne({ where: { id } });
+      if (!task) {
+        throw new BadRequestException('Task not found');
+      }
+      await this.taskRepository.delete(id);
+      return task;
     } catch (error) {
       throw new BadRequestException(error.message);
     }

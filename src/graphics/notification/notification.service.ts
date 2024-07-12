@@ -40,8 +40,12 @@ export class NotificationService {
 
   async remove(action: string, id: number) {
     try {
-      const deletedNotification = this.notificationRepository.delete(id);
-      return await deletedNotification;
+      const notification = await this.notificationRepository.findOne({ where: { id } });
+      if (!notification) {
+        throw new BadRequestException('Notification not found');
+      }
+      await this.notificationRepository.delete(id);
+      return notification;
     } catch (error) {
       throw new BadRequestException(error.message);
     }

@@ -59,7 +59,16 @@ export class TeamParticipantService {
   }
 
   async remove(action: string, id: number) {
-    return await this.teamParticipantRepository.delete(id);
+    try {
+      const teamParticipant = await this.teamParticipantRepository.findOne({ where: { id } });
+      if (!teamParticipant) {
+        throw new BadRequestException('TeamParticipant not found');
+      }
+      await this.teamParticipantRepository.delete(id);
+      return teamParticipant;
+    } catch (error) {
+      throw new BadRequestException(error.message);
+    }
   }
 
   async findTeamsByParticipant(action: string, id: number): Promise<Team[]> {
