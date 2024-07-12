@@ -22,9 +22,9 @@ export class CommentService {
   async create(action: string, createCommentDto: CreateCommentDto): Promise<Comment> {
     try {
       const newComment = this.commentRepository.create(createCommentDto);
-      const project = await this.projectRepository.findOne(ProjectMSG.FIND_ONE, createCommentDto.project_id);
-      const task = await this.taskRepository.findOne(TaskMSG.FIND_ONE, createCommentDto.task_id);
-      const participant = await this.participantRepository.findOne(ParticipantMSG.FIND_ONE, createCommentDto.user_id);
+      const project = await this.projectRepository.findOne(ProjectMSG.FIND_ONE, createCommentDto.projectId);
+      const task = await this.taskRepository.findOne(TaskMSG.FIND_ONE, createCommentDto.taskId);
+      const participant = await this.participantRepository.findOne(ParticipantMSG.FIND_ONE, createCommentDto.participantId);
 
       newComment.project = project;
       newComment.task = task;

@@ -1,6 +1,6 @@
 import { Injectable, BadRequestException, forwardRef, Inject } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, UpdateResult } from 'typeorm';
+import { In, Repository, UpdateResult } from 'typeorm';
 import { Project } from './project.entity';
 import { CreateProjectDto } from './create-project.dto';
 import { UpdateProjectDto } from './update-project.dto';
@@ -54,7 +54,7 @@ export class ProjectService {
   async findProjectByParticipant(action: string, id: number): Promise<Project[]> {
     try {
       const teams = await this.teamParticipantRepository.findTeamsByParticipant(TeamParticipantMSG.FIND_TEAMS_BY_PARTICIPANT, id);
-      const projects = await this.projectRepository.find({ where: { id: teams.map(team => team.projectId)});
+      const projects = await this.projectRepository.find({ where: { id: In(teams.map(team => team.projectId))}});
       return projects;
     } catch (error) {
       throw new BadRequestException(error.message);
