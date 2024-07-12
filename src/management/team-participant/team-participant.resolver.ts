@@ -42,6 +42,11 @@ export class TeamParticipantResolver {
     return this.teamParticipantService.findTeamsByParticipant(TeamParticipantMSG.FIND_TEAMS_BY_PARTICIPANT, id);
   }
 
+  @Query(() => [Participant], { name: 'FIND_PARTICIPANTS_BY_TEAM' })
+  findParticipantsByTeam(@Args('id') id: number) {
+    return this.teamParticipantService.findParticipantsByTeam(TeamParticipantMSG.FIND_PARTICIPANTS_BY_TEAM, id);
+  }
+
   @Query(() => [Project], { name: 'FIND_PROJECTS_BY_PARTICIPANT' })
   findProjectsByParticipant(@Args('id') id: number) {
     return this.teamParticipantService.findProjectsByParticipant(TeamParticipantMSG.FIND_PROJECTS_BY_PARTICIPANT, id);

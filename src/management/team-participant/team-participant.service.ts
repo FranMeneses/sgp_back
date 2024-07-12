@@ -65,11 +65,10 @@ export class TeamParticipantService {
   async findTeamsByParticipant(action: string, id: number): Promise<Team[]> {
     try {
         const participant = await this.participantRepository.findOne(ParticipantMSG.FIND_ONE, id);
-        const teamParticipant = await this.teamParticipantRepository.find({ where: { participant } });
+        const teamParticipant = await this.teamParticipantRepository.find({ where: { participant }, relations: ['team'] });
         const teams = teamParticipant.map(tp => tp.team);
         return teams;
     } catch (error) {
-        console.log('manitont');
         throw new BadRequestException(error.message);
     }
 }
@@ -77,7 +76,7 @@ export class TeamParticipantService {
   async findParticipantsByTeam(action: string, id: number): Promise<Participant[]> {
     try {
       const team = await this.teamRepository.findOne(TeamMSG.FIND_ONE, id);
-      const teamParticipant = await this.teamParticipantRepository.find({ where: { team } });
+      const teamParticipant = await this.teamParticipantRepository.find({ where: { team }, relations: ['participant'] });
       const participants = teamParticipant.map(tp => tp.participant);
       return participants;
     } catch (error) {
@@ -88,9 +87,10 @@ export class TeamParticipantService {
   async findProjectsByParticipant(action: string, id: number) {
     try {
       const participant = await this.participantRepository.findOne(ParticipantMSG.FIND_ONE, id);
-      const teamParticipant = await this.teamParticipantRepository.find({ where: { participant } });
-      const teams = teamParticipant.map(tp => tp.team);
+      const teamParticipant = await this.teamParticipantRepository.find({ where: { participant }, relations: ['team'] });
+      const teams = teamParticipant.map(tp => tp.team) || [];
       const projects = teams.map(t => t.project);
+      console.log(projects);
       return projects;
     } catch (error) {
       throw new BadRequestException(error.message);
@@ -100,7 +100,7 @@ export class TeamParticipantService {
   async findParticipantsByProject(action: string, id: number): Promise<Participant[]> {
     try {
       const teams = await this.teamRepository.findTeamsByProject(TeamMSG.FIND_TEAMS_BY_PROJECT, id);
-      const teamParticipant = await this.teamParticipantRepository.find({ where: { team: teams } });
+      const teamParticipant = await this.teamParticipantRepository.find({ where: { team: teams }, relations: ['participant'] });
       const participants = teamParticipant.map(tp => tp.participant);
       return participants;
     } catch (error) {
