@@ -6,6 +6,7 @@ import { CreateTeamDto } from './create-team.dto';
 import { UpdateTeamDto } from './update-team.dto';
 import { ProjectService } from '../project/project.service';
 import { ProjectMSG } from 'src/constants';
+import { Project } from '../project/project.entity';
 
 @Injectable()
 export class TeamService {
@@ -60,6 +61,15 @@ export class TeamService {
             const project = await this.projectRepository.findOne(ProjectMSG.FIND_ONE, id);
             const teams = await this.teamRepository.find({ where: { project } });
             return teams;
+        } catch (error) {
+            throw new BadRequestException(error.message);
+        }
+    }
+
+    async findProjectsByTeam(action: string, id: number): Promise<Project> {
+        try {
+            const project = await this.teamRepository.findOne({ where: { id }, relations: ['project'] });
+            return project.project;
         } catch (error) {
             throw new BadRequestException(error.message);
         }

@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, JoinColumn, OneToOne } from 'typeorm';
 import { Task } from 'src/management/task/task.entity';
 import { ObjectType, Field, ID } from '@nestjs/graphql';
 import { IsOptional } from 'class-validator';

@@ -1,7 +1,7 @@
 import { ObjectType, Field, ID } from "@nestjs/graphql";
 import { IsOptional } from "class-validator";
 import { Task } from "src/management/task/task.entity";
-import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 @ObjectType()
@@ -22,7 +22,7 @@ export class Notification {
     @Field(() => Number)
     taskId: number;
 
-    @OneToOne(() => Task)
+    @ManyToOne(() => Task)
     @IsOptional()
     @JoinColumn({ name: 'taskId' })
     @Field(() => Task, { nullable: true })

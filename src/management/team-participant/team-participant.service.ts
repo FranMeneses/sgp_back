@@ -89,8 +89,11 @@ export class TeamParticipantService {
       const participant = await this.participantRepository.findOne(ParticipantMSG.FIND_ONE, id);
       const teamParticipant = await this.teamParticipantRepository.find({ where: { participant }, relations: ['team'] });
       const teams = teamParticipant.map(tp => tp.team);
-      const projects = teams.map(t => t.project);
-      console.log(projects);
+      const projects = [];
+      for (const team of teams) {
+        const project = await this.teamRepository.findProjectsByTeam(TeamMSG.FIND_PROJECTS_BY_TEAM, team.id);
+        projects.push(project);
+      }
       return projects;
     } catch (error) {
       throw new BadRequestException(error.message);

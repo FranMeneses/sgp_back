@@ -4,6 +4,7 @@ import { Team } from './team.entity';
 import { CreateTeamDto } from './create-team.dto';
 import { UpdateTeamDto } from './update-team.dto';
 import { TeamMSG } from 'src/constants';
+import { Project } from '../project/project.entity';
 
 @Resolver(() => Team)
 export class TeamResolver {
@@ -37,5 +38,10 @@ export class TeamResolver {
   @Query(() => [Team], { name: 'FIND_TEAMS_BY_PROJECT' })
   findTeamsByProject(@Args('id') id: number) {
     return this.teamService.findTeamsByProject(TeamMSG.FIND_TEAMS_BY_PROJECT, id);
+  }
+
+  @Query(() => [Project], { name: 'FIND_PROJECTS_BY_TEAM' })
+  findProjectsByTeam(@Args('id') id: number) {
+    return this.teamService.findProjectsByTeam(TeamMSG.FIND_PROJECTS_BY_TEAM, id);
   }
 }

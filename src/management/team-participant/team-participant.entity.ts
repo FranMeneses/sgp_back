@@ -1,5 +1,5 @@
 import { Field, ID, ObjectType } from "@nestjs/graphql";
-import { Column, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn, JoinColumn, ManyToOne } from "typeorm";
+import { Column, Entity, OneToOne, PrimaryGeneratedColumn, JoinColumn, ManyToOne } from "typeorm";
 import { Team } from "../team/team.entity";
 import { Participant } from "../participant/participant.entity";
 import { Task } from "../task/task.entity";
@@ -36,7 +36,7 @@ export class TeamParticipant {
     @Field(() => Number)
     teamId: number;
 
-    @OneToOne(() => Team)
+    @ManyToOne(() => Team)
     @IsOptional()
     @JoinColumn({ name: 'teamId' })
     @Field(() => Team, { nullable: true })

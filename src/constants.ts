@@ -31,6 +31,7 @@ export enum TeamMSG {
     UPDATE = 'UPDATE_TEAM',
     DELETE = 'DELETE_TEAM',
     FIND_TEAMS_BY_PROJECT = 'FIND_TEAMS_BY_PROJECT',
+    FIND_PROJECTS_BY_TEAM = 'FIND_PROJECTS_BY_TEAM',
 }
 
 export enum ProjectMSG {
