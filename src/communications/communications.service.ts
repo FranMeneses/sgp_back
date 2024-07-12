@@ -26,17 +26,17 @@ export class CommunicationsService {
 
     async createMessage(message: CreateMessageDto): Promise<Message> {
         try {
-            const conversation = await this.conversationRepository.findOne({ where: { id: message.id_conversation } });
+            const conversation = await this.conversationRepository.findOne({ where: { id: message.conversationId } });
             if (!conversation) {
                 throw new Error('Conversation not found');
             }
 
-            const participantConversation  = await this.participantConversationRepository.find({ where: { id: message.id_participant } });
+            const participantConversation  = await this.participantConversationRepository.find({ where: { id: message.participantId } });
             if (!participantConversation) {
                 throw new Error('Participant conversation not found');
             }
 
-            const newMessage = this.messageRepository.create({id_conversation: conversation, id_participant: participantConversation, content: message.content, date: new Date()});
+            const newMessage = this.messageRepository.create({ conversationId: conversation, id_participant: participantConversation, content: message.content, date: new Date()});
 
             return await this.messageRepository.save(newMessage);
         } catch (error) {
@@ -47,12 +47,12 @@ export class CommunicationsService {
     async createConversation(conversation: CreateConversationDto): Promise<Conversation> {
         try {
             
-            const project = await this.projectRepository.findOne(ProjectMSG.FIND_ONE, conversation.id_project);
+            const project = await this.projectRepository.findOne(ProjectMSG.FIND_ONE, conversation.projectId);
             if (!project) {
                 throw new Error('Project not found');
             }
 
-            const newConversation = this.conversationRepository.create({id_project: project});
+            const newConversation = this.conversationRepository.create({projectId: project});
             return await this.conversationRepository.save(newConversation);
         } catch (error) {
             throw new Error(error.message);
@@ -62,17 +62,17 @@ export class CommunicationsService {
     async createParticipantConversation(participantConversation: CreateParticipantConversationDto): Promise<ParticipantConversation> {
         try {
 
-            const conversation = await this.conversationRepository.findOne({ where: { id: participantConversation.id_conversation } });
+            const conversation = await this.conversationRepository.findOne({ where: { id: participantConversation.conversationId } });
             if (!conversation) {
                 throw new Error('Conversation not found');
             }
 
-            const participant = await this.participantRepository.findOne(ParticipantMSG.FIND_ONE, participantConversation.id_participant);
+            const participant = await this.participantRepository.findOne(ParticipantMSG.FIND_ONE, participantConversation.participantId);
             if (!participant) {
                 throw new Error('Participant not found');
             }
 
-            const newParticipantConversation = this.participantConversationRepository.create({id_conversation: conversation, id_participant: participant});
+            const newParticipantConversation = this.participantConversationRepository.create({conversationId: conversation, id_participant: participant});
 
             return await this.participantConversationRepository.save(newParticipantConversation);
         } catch (error) {
@@ -81,10 +81,10 @@ export class CommunicationsService {
     }
 
     async findMessagesByConversation(id_conversation: Conversation): Promise<Message[]> {
-        return await this.messageRepository.find({ where: { id_conversation:id_conversation } });
+        return await this.messageRepository.find({ where: { conversationId:id_conversation } });
     }
     
     async findconversationByProjects(id_project: number): Promise<Conversation> {
-        return await this.conversationRepository.findOne({ where: { id_project: { id: id_project } } });
+        return await this.conversationRepository.findOne({ where: { projectId: { id: id_project } } });
     }
 }

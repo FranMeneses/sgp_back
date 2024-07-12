@@ -1,7 +1,7 @@
 import { Field, ID, ObjectType } from "@nestjs/graphql";
 import { IsOptional } from "class-validator";
 import { Project } from "src/management/project/project.entity";
-import { Entity, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 
 @Entity()
@@ -12,8 +12,13 @@ export class Conversation {
     @Field(() => ID)
     id: number;
 
-    @OneToOne(() => Project, project => project.id)
+    @Column()
+    @Field(() => Number)
+    projectId: number;
+
+    @OneToOne(() => Project)
     @IsOptional()
+    @JoinColumn({ name: 'projectId' })
     @Field(() => Project, { nullable: true })
-    id_project: Project; 
+    project: Project; 
 }

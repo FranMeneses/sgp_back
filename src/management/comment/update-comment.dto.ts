@@ -8,13 +8,23 @@ export class UpdateCommentDto {
     @Field(() => String, { nullable: true })
     content: string;
 
-    @IsNumber()
+    @IsDate()
     @IsOptional()
-    @Field(() => Number, { nullable: true })
-    project_id: number;
+    @Field(() => Date, { nullable: true })
+    date: Date;
 
     @IsNumber()
     @IsOptional()
     @Field(() => Number, { nullable: true })
-    task_id: number;
+    participantId: number;
+
+    @IsNumber()
+    @IsOptional()
+    @Field(() => Number, { nullable: true })
+    projectId: number;
+
+    @IsNumber()
+    @IsOptional()
+    @Field(() => Number, { nullable: true })
+    taskId: number;
 }

@@ -1,5 +1,5 @@
 import { Field, InputType } from '@nestjs/graphql';
-import { IsString, IsOptional } from 'class-validator';
+import { IsString, IsOptional, IsNumber } from 'class-validator';
 
 @InputType()
 export class UpdateTeamDto {
@@ -17,4 +17,9 @@ export class UpdateTeamDto {
 	@IsString()
 	@Field(() => String)
 	description: string;
+
+	@IsOptional()
+	@IsNumber()
+	@Field(() => Number)
+	projectId: number;
 }

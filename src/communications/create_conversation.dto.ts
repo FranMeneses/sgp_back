@@ -6,5 +6,5 @@ export class CreateConversationDto {
   @IsNumber()
   @IsOptional()
   @Field(() => Number, { nullable: true })
-  id_project: number;
+  projectId: number;
 }

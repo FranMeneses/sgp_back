@@ -6,12 +6,12 @@ export class CreateMessageDto {
   @Field(() => Number, { nullable: true })
   @IsNumber()
   @IsOptional()
-  id_conversation: number;
+  conversationId: number;
 
   @IsNumber()
   @IsOptional()
   @Field(() => Number, { nullable: true })
-  id_participant: number;
+  participantId: number;
 
   @IsString()
   @Field(() => String)

@@ -6,10 +6,10 @@ export class CreateParticipantConversationDto {
     @IsNumber()
     @IsOptional()
     @Field(() => Number, { nullable: true })
-    id_participant: number;
+    participantId: number;
 
     @IsNumber()
     @IsOptional()
     @Field(() => Number, { nullable: true })
-    id_conversation: number;
+    conversationId: number;
 }

@@ -1,5 +1,5 @@
 import { Participant } from 'src/management/participant/participant.entity';
-import { Entity, Column, PrimaryGeneratedColumn, ManyToMany, OneToOne } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToMany, OneToOne, JoinColumn } from 'typeorm';
 import { Conversation } from './conversation.entity';
 import { Field, ID, ObjectType } from '@nestjs/graphql';
 import { IsOptional } from 'class-validator';
@@ -11,15 +11,25 @@ export class Message {
   @Field(() => ID)
   id: number;
 
-  @OneToOne(() => Conversation, conversation => conversation.id)
-  @IsOptional()
-  @Field(() => Conversation, { nullable: true })
-  id_conversation: Conversation;
+  @Column()
+  @Field(() => Number)
+  conversationId: number;
 
-  @ManyToMany(() => Participant, participant => participant.id)
+  @OneToOne(() => Conversation)
   @IsOptional()
+  @JoinColumn({ name: 'conversationId' })
+  @Field(() => Conversation, { nullable: true })
+  conversation: Conversation;
+
+  @Column()
+  @Field(() => Number)
+  participantId: number[];
+
+  @ManyToMany(() => Participant)
+  @IsOptional()
+  @JoinColumn({ name: 'participantId' })
   @Field(() => [Participant], { nullable: true })
-  id_participant: Participant[];
+  participant: Participant[];
 
   @Column()
   @Field(() => String)

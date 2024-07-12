@@ -16,15 +16,15 @@ export class CreateCommentDto {
     @IsNumber()
     @IsOptional()
     @Field(() => Number, { nullable: true })
-    project_id: number;
+    participantId: number;
 
     @IsNumber()
     @IsOptional()
     @Field(() => Number, { nullable: true })
-    task_id: number;
+    projectId: number;
 
     @IsNumber()
     @IsOptional()
     @Field(() => Number, { nullable: true })
-    user_id: number;
+    taskId: number;
 }

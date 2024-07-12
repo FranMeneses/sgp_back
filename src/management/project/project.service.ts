@@ -54,7 +54,7 @@ export class ProjectService {
   async findProjectByParticipant(action: string, id: number): Promise<Project[]> {
     try {
       const teams = await this.teamParticipantRepository.findTeamsByParticipant(TeamParticipantMSG.FIND_TEAMS_BY_PARTICIPANT, id);
-      const projects = await this.projectRepository.find({ where: { teams: teams } });
+      const projects = await this.projectRepository.find({ where: { id: teams.map(team => team.projectId)});
       return projects;
     } catch (error) {
       throw new BadRequestException(error.message);

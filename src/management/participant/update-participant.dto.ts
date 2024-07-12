@@ -27,14 +27,4 @@ export class UpdateParticipantDto {
   @IsString()
   @Field(() => String, { nullable: true })
   rut?: string;
-
-  @IsOptional()
-  @IsNumber()
-  @Field(() => Number, { nullable: true })
-  teamParticipantId?: number;
-
-  @IsOptional()
-  @IsNumber()
-  @Field(() => Number, { nullable: true })
-  participantConversationId?: number;
 }

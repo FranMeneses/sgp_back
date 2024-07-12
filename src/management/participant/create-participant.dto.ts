@@ -27,14 +27,4 @@ export class CreateParticipantDto {
   @IsString()
   @Field(() => String)
   rut: string;
-
-  @IsNumber()
-  @IsOptional()
-  @Field(() => Number, { nullable: true })
-  teamParticipantId: number;
-
-  @IsNumber()
-  @IsOptional()
-  @Field(() => Number, { nullable: true })
-  participantConversationId: number;
 }

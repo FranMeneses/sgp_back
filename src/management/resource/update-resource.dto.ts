@@ -1,13 +1,8 @@
 import { Field, InputType } from '@nestjs/graphql';
-import { IsString, IsOptional, IsInt } from 'class-validator';
+import { IsString, IsOptional, IsNumber } from 'class-validator';
 
 @InputType()
 export class UpdateResourceDto {
-  @IsOptional()
-  @IsString()
-  @Field(() => String, { nullable: true })
-  category?: string;
-
   @IsOptional()
   @IsString()
   @Field(() => String, { nullable: true })
@@ -16,10 +11,15 @@ export class UpdateResourceDto {
   @IsOptional()
   @IsString()
   @Field(() => String, { nullable: true })
+  category?: string;
+
+  @IsOptional()
+  @IsString()
+  @Field(() => String, { nullable: true })
   content?: string;
 
   @IsOptional()
-  @IsInt()
+  @IsNumber()
   @Field(() => Number, { nullable: true })
   projectId?: number;
 }
