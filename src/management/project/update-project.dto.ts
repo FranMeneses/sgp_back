@@ -10,6 +10,11 @@ export class UpdateProjectDto {
     name?: string;
 
     @IsOptional()
+    @IsString()
+    @Field(() => String, { nullable: true })
+    description?: string;
+
+    @IsOptional()
     @IsNumber()
     @Field(() => Number, { nullable: true })
     amount_participants?: number;

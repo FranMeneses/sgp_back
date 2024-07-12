@@ -10,6 +10,11 @@ export class CreateProjectDto {
     name: string;
 
     @IsNotEmpty()
+    @IsString()
+    @Field(() => String)
+    description: string;
+
+    @IsNotEmpty()
     @IsNumber()
     @Field(() => Number)
     amount_participants: number;

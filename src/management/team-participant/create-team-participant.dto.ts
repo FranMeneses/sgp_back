@@ -6,7 +6,7 @@ export class CreateTeamParticipantDto {
     @IsNumber()
     @IsOptional()
     @Field(() => Number, { nullable: true })
-    participantId: number;
+    participantId?: number;
 
     @IsNumber()
     @IsOptional()
@@ -16,7 +16,7 @@ export class CreateTeamParticipantDto {
     @IsNumber()
     @IsOptional()
     @Field(() => Number, { nullable: true })
-    teamId: number;
+    teamId?: number;
 
     @IsString()
     @IsNotEmpty()

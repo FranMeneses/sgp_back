@@ -13,6 +13,10 @@ export class Project {
     name: string;
 
     @Column()
+    @Field(() => String)
+    description: string;
+
+    @Column()
     @Field(() => Number)
     amount_participants: number;
 
