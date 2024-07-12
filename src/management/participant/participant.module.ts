@@ -7,7 +7,7 @@ import { TeamModule } from '../team/team.module';
 import { TeamParticipantModule } from '../team-participant/team-participant.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Participant]), forwardRef(() => TeamModule), forwardRef(() => TeamParticipantModule)],
+  imports: [TypeOrmModule.forFeature([Participant])],
   providers: [ParticipantService, ParticipantResolver],
   controllers: [],
   exports: [ParticipantService],

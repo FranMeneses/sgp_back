@@ -1,4 +1,4 @@
-import { Injectable, BadRequestException, forwardRef, Inject } from '@nestjs/common';
+import { Injectable, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Team } from './team.entity';
 import { Repository, UpdateResult } from 'typeorm';
@@ -12,7 +12,6 @@ export class TeamService {
     constructor(
         @InjectRepository(Team)
         private teamRepository: Repository<Team>,
-        @Inject(forwardRef(() => ProjectService))
         private readonly projectRepository: ProjectService,
     ) {}
 

@@ -6,6 +6,7 @@ import { UpdateTeamParticipantDto } from './update-team-participant.dto';
 import { TeamParticipantMSG } from 'src/constants';
 import { Team } from '../team/team.entity';
 import { Project } from '../project/project.entity';
+import { Participant } from '../participant/participant.entity';
 
 @Resolver(() => TeamParticipant)
 export class TeamParticipantResolver {
@@ -44,5 +45,10 @@ export class TeamParticipantResolver {
   @Query(() => [Project], { name: 'FIND_PROJECTS_BY_PARTICIPANT' })
   findProjectsByParticipant(@Args('id') id: number) {
     return this.teamParticipantService.findProjectsByParticipant(TeamParticipantMSG.FIND_PROJECTS_BY_PARTICIPANT, id);
+  }
+
+  @Query(() => [Participant], { name: 'FIND_PARTICIPANTS_BY_PROJECT' })
+  findParticipantsByProject(@Args('id') id: number) {
+    return this.teamParticipantService.findParticipantsByProject(TeamParticipantMSG.FIND_PARTICIPANTS_BY_PROJECT, id);
   }
 }

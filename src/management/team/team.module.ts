@@ -6,7 +6,7 @@ import { TeamResolver } from './team.resolver';
 import { ProjectModule } from '../project/project.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Team]), forwardRef(() => ProjectModule)],
+  imports: [TypeOrmModule.forFeature([Team]), ProjectModule],
   providers: [TeamService, TeamResolver],
   controllers: [],
   exports: [TeamService],

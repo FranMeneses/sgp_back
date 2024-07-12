@@ -15,9 +15,7 @@ export class TeamParticipantService {
   constructor(
     @InjectRepository(TeamParticipant)
     private teamParticipantRepository: Repository<TeamParticipant>,
-    @Inject(forwardRef(() => ParticipantService))
     private readonly participantRepository: ParticipantService,
-    @Inject(forwardRef(() => TeamService))
     private readonly teamRepository: TeamService,
   ) {}
 
@@ -91,6 +89,17 @@ export class TeamParticipantService {
       const teams = teamParticipant.map(tp => tp.team);
       const projects = teams.map(t => t.project);
       return projects;
+    } catch (error) {
+      throw new BadRequestException(error.message);
+    }
+  }
+
+  async findParticipantsByProject(action: string, id: number): Promise<Participant[]> {
+    try {
+      const teams = await this.teamRepository.findTeamsByProject(TeamMSG.FIND_TEAMS_BY_PROJECT, id);
+      const teamParticipant = await this.teamParticipantRepository.find({ where: { team: teams } });
+      const participants = teamParticipant.map(tp => tp.participant);
+      return participants;
     } catch (error) {
       throw new BadRequestException(error.message);
     }
