@@ -162,6 +162,7 @@ type Query {
   FIND_RESOURCE(id: Float!): Resource!
   FIND_RESOURCES: [Resource!]!
   FIND_RESOURCES_BY_PROJECT(projectId: Float!): [Resource!]!
+  FIND_ROLES_BY_PARTICIPANT_AND_TEAM(participant_id: Float!, team_id: Float!): [TeamParticipant!]!
   FIND_STATUSES_CHANGED: [StatusChanged!]!
   FIND_STATUS_CHANGED(id: Float!): StatusChanged!
   FIND_TASK(id: Float!): Task!

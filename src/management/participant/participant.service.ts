@@ -38,10 +38,14 @@ export class ParticipantService {
     }
   }
 
-  async remove(action: string, id: number) {
+  async remove(action: string, id: number): Promise<Participant> {
     try {
-      const deletedParticipant = this.participantRepository.delete(id);
-      return await deletedParticipant;
+      const participant = await this.participantRepository.findOne({ where: { id } });
+      if (!participant) {
+        throw new BadRequestException('Participant not found');
+      }
+      await this.participantRepository.delete(id);
+      return participant;
     } catch (error) {
       throw new BadRequestException(error.message);
     }
