@@ -24,7 +24,7 @@ export class StatusChanged {
 
     @Column()
     @Field(() => Number)
-    taskId: number;
+    taskId: Number;
 
     @OneToOne(() => Task)
     @IsOptional()

@@ -14,7 +14,7 @@ export class StatusChangedService {
 
   async create(action: string, createStatusChangedDto: CreateStatusChangedDto): Promise<StatusChanged> {
     try {
-      const newStatusChanged = this.statusChangedRepository.create(createStatusChangedDto);
+      const newStatusChanged = this.statusChangedRepository.create({date: createStatusChangedDto.date, previous_status: createStatusChangedDto.previous_status, actual_status: createStatusChangedDto.actual_status, taskId: createStatusChangedDto.taskId});
       return await this.statusChangedRepository.save(newStatusChanged);
     } catch (error) {
       throw new BadRequestException(error.message);
