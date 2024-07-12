@@ -10,8 +10,8 @@ export class CreateTeamParticipantDto {
 
     @IsNumber()
     @IsOptional()
-    @Field(() => [Number], { nullable: true })
-    taskId?: number[];
+    @Field(() => Number, { nullable: true })
+    taskId?: number;
 
     @IsNumber()
     @IsOptional()

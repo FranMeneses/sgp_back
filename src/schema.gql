@@ -2,34 +2,30 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type Archive {
-  date: DateTime!
-  id: ID!
-  name: String!
-  project: Project
-  type: String!
-}
-
 type Comment {
   content: String!
   date: DateTime!
   id: ID!
   participant: Participant
+  participantId: Float!
   project: Project
+  projectId: Float!
   task: Task
+  taskId: Float!
 }
 
 type Conversation {
   id: ID!
-  id_project: Project
+  project: Project
+  projectId: Float!
 }
 
 input CreateCommentDto {
   content: String!
   date: DateTime!
-  project_id: Float
-  task_id: Float
-  user_id: Float
+  participantId: Float
+  projectId: Float
+  taskId: Float
 }
 
 input CreateNotificationDto {
@@ -42,10 +38,8 @@ input CreateParticipantDto {
   email: String!
   last_name: String!
   name: String!
-  participantConversationId: Float
   password: String!
   rut: String!
-  teamParticipantId: Float
 }
 
 input CreateProjectDto {
@@ -86,24 +80,16 @@ input CreateTeamDto {
 }
 
 input CreateTeamParticipantDto {
-  id_participant: Float
-  id_task: [Float!]
-  id_team: Float
+  participantId: Float
   role: String!
+  taskId: Float
+  teamId: Float
 }
 
 """
 A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
 """
 scalar DateTime
-
-type Meeting {
-  date: DateTime!
-  description: String!
-  id: ID!
-  name: String!
-  project: Project
-}
 
 type Mutation {
   CREATE_COMMENT(createCommentDto: CreateCommentDto!): Comment!
@@ -140,6 +126,7 @@ type Notification {
   date: DateTime!
   id: ID!
   task: Task
+  taskId: Float!
 }
 
 type Participant {
@@ -152,16 +139,10 @@ type Participant {
 
 type Project {
   amount_participants: Float!
-  archives: [Archive!]
-  comments: [Comment!]
   end_date: DateTime!
   id: ID!
-  meetings: [Meeting!]
   name: String!
-  resources: [Resource!]
   start_date: DateTime!
-  tasks: [Task!]
-  teams: [Team!]
 }
 
 type Query {
@@ -196,6 +177,7 @@ type Resource {
   content: String!
   id: ID!
   project: Project
+  projectId: Float!
   title: String!
 }
 
@@ -205,6 +187,7 @@ type StatusChanged {
   id: ID!
   previous_status: String!
   task: Task
+  taskId: Float!
 }
 
 type Task {
@@ -222,21 +205,27 @@ type Team {
   id: ID!
   name: String!
   project: Project
+  projectId: Float
   type: String!
 }
 
 type TeamParticipant {
   id: ID!
   participant: Participant
+  participantId: Float!
   role: String!
-  tasks: [Task!]
+  taskId: Float!
+  tasks: Task
   team: Team
+  teamId: Float!
 }
 
 input UpdateCommentDto {
   content: String
-  project_id: Float
-  task_id: Float
+  date: DateTime
+  participantId: Float
+  projectId: Float
+  taskId: Float
 }
 
 input UpdateNotificationDto {
@@ -248,10 +237,8 @@ input UpdateParticipantDto {
   email: String
   last_name: String
   name: String
-  participantConversationId: Float
   password: String
   rut: String
-  teamParticipantId: Float
 }
 
 input UpdateProjectDto {
@@ -285,6 +272,7 @@ input UpdateTaskDto {
 input UpdateTeamDto {
   description: String!
   name: String!
+  projectId: Float!
   type: String!
 }
 

@@ -27,17 +27,8 @@ export class CommunicationsService {
     async createMessage(message: CreateMessageDto): Promise<Message> {
         try {
             const conversation = await this.conversationRepository.findOne({ where: { id: message.conversationId } });
-            if (!conversation) {
-                throw new Error('Conversation not found');
-            }
-
-            const participantConversation  = await this.participantConversationRepository.find({ where: { id: message.participantId } });
-            if (!participantConversation) {
-                throw new Error('Participant conversation not found');
-            }
-
-            const newMessage = this.messageRepository.create({ conversation: conversation, participant: participantConversation, content: message.content, date: message.date});
-
+            const participantConversation  = await this.participantConversationRepository.findOne({ where: { id: message.participantId } });
+            const newMessage = this.messageRepository.create({ conversationId: conversation.id, participantId: participantConversation.id, content: message.content, date: new Date() });
             return await this.messageRepository.save(newMessage);
         } catch (error) {
             throw new Error(error.message);

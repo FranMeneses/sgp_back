@@ -23,13 +23,13 @@ export class Message {
 
   @Column()
   @Field(() => Number)
-  participantId: number[];
+  participantId: number;
 
-  @ManyToMany(() => Participant)
+  @OneToOne(() => Participant)
   @IsOptional()
   @JoinColumn({ name: 'participantId' })
-  @Field(() => [Participant], { nullable: true })
-  participant: Participant[];
+  @Field(() => Participant, { nullable: true })
+  participant: Participant;
 
   @Column()
   @Field(() => String)
